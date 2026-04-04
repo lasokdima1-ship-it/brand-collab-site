@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>COLLABVERSE — Future Brand Experience</title>
+
+  <style>
+    * {margin:0;padding:0;box-sizing:border-box;}
+
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(180deg,#05060a,#0b0f1c);
+      color:#fff;
+    }
+
+    .container {
+      max-width:1200px;
+      margin:auto;
+      padding:40px 20px;
+    }
+
+    h1 {
+      font-size:60px;
+      text-align:center;
+      background:linear-gradient(90deg,#4c8dff,#8b5cf6,#22d3ee);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    p {
+      text-align:center;
+      color:#aaa;
+      margin-top:10px;
+    }
+
+    .brands {
+      display:flex;
+      gap:20px;
+      justify-content:center;
+      margin-top:40px;
+      flex-wrap:wrap;
+    }
+
+    .brand {
+      padding:15px 25px;
+      border-radius:20px;
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.1);
+    }
+
+    .quest {
+      margin-top:60px;
+      text-align:center;
+    }
+
+    .btn {
+      padding:15px 30px;
+      border:none;
+      border-radius:20px;
+      background:#4c8dff;
+      color:#fff;
+      font-size:18px;
+      cursor:pointer;
+      margin-top:20px;
+    }
+
+    .memory {
+      margin-top:60px;
+    }
+
+    textarea {
+      width:100%;
+      height:100px;
+      border-radius:15px;
+      border:none;
+      padding:15px;
+      background:#111;
+      color:#fff;
+    }
+
+    .memories {
+      margin-top:20px;
+    }
+
+    .card {
+      background:#111;
+      padding:15px;
+      border-radius:15px;
+      margin-bottom:10px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <h1>COLLABVERSE</h1>
+    <p>The future of brand collaboration</p>
+
+    <div class="brands">
+      <div class="brand">META</div>
+      <div class="brand">GOOGLE</div>
+      <div class="brand">REDBULL</div>
+      <div class="brand">TESLA</div>
+      <div class="brand">NIKE</div>
+    </div>
+
+    <div class="quest">
+      <h2>Interactive Quest</h2>
+      <p>Click and discover something new</p>
+      <button class="btn" onclick="startQuest()">Start Quest</button>
+      <p id="questResult"></p>
+    </div>
+
+    <div class="memory">
+      <h2>Drop Your Memory</h2>
+      <textarea id="memoryInput" placeholder="Write something..."></textarea>
+      <button class="btn" onclick="addMemory()">Submit</button>
+
+      <div class="memories" id="memories"></div>
+    </div>
+
+  </div>
+
+  <script>
+    function startQuest() {
+      const texts = [
+        "You unlocked creativity",
+        "You found a hidden idea",
+        "You are part of the future",
+        "You discovered a secret",
+        "You are now inside the system"
+      ];
+      document.getElementById("questResult").innerText =
+        texts[Math.floor(Math.random() * texts.length)];
+    }
+
+    function addMemory() {
+      const input = document.getElementById("memoryInput");
+      if(!input.value) return;
+
+      const div = document.createElement("div");
+      div.className = "card";
+      div.innerText = input.value;
+
+      document.getElementById("memories").prepend(div);
+      input.value = "";
+    }
+  </script>
+
+</body>
+</html>
