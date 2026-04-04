@@ -2,13 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SIGNAL/ONE — A Living Internet Idea</title>
-  <meta name="description" content="A living internet idea that changes every day. Built as a premium concept site about future, memory, culture, motion and signal." />
-  <meta property="og:title" content="SIGNAL/ONE" />
-  <meta property="og:description" content="A living internet idea that changes every day." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>SLAVCOIN — Living Brand Platform</title>
+  <meta
+    name="description"
+    content="SLAVCOIN is a living digital brand platform — a premium internet concept built around daily signals, dynamic mood, cultural relevance, and acquisition-ready presentation."
+  />
+  <meta property="og:title" content="SLAVCOIN — Living Brand Platform" />
+  <meta
+    property="og:description"
+    content="A premium living internet concept designed for brands, partners, founders, buyers, and future-facing digital culture."
+  />
   <meta property="og:type" content="website" />
-  <meta name="theme-color" content="#090b12" />
+  <meta property="og:url" content="https://slavcoin.fun/" />
+  <meta name="theme-color" content="#07090d" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -18,36 +26,40 @@
 
     :root{
       --bg:#06070b;
-      --bg2:#0c1020;
-      --card:rgba(255,255,255,0.06);
-      --card2:rgba(255,255,255,0.04);
-      --line:rgba(255,255,255,0.10);
-      --text:#f5f7ff;
-      --muted:#9aa5bd;
-      --blue:#5da2ff;
-      --cyan:#61e7ff;
-      --purple:#8c63ff;
-      --green:#49f2a7;
-      --yellow:#ffd76b;
-      --red:#ff6f8f;
-      --shadow:0 30px 80px rgba(0,0,0,0.38);
-      --radius:28px;
+      --bg2:#0b0e14;
+      --bg3:#101521;
+      --card:rgba(255,255,255,.055);
+      --card2:rgba(255,255,255,.038);
+      --line:rgba(255,255,255,.10);
+      --line2:rgba(255,255,255,.06);
+      --text:#f8fafc;
+      --muted:#98a3b8;
+      --muted2:#c0c8d8;
+      --blue:#79a7ff;
+      --purple:#9074ff;
+      --cyan:#7fe6ff;
+      --green:#7af0bc;
+      --gold:#e0c896;
+      --gold2:#9a825b;
+      --shadow:0 30px 90px rgba(0,0,0,.42);
+      --radius:30px;
       --radius-sm:20px;
-      --max:1260px;
+      --max:1320px;
     }
 
     html { scroll-behavior:smooth; }
 
     body{
-      font-family:"Inter", sans-serif;
+      font-family:"Inter",sans-serif;
       color:var(--text);
       background:
-        radial-gradient(circle at 10% 10%, rgba(93,162,255,0.18), transparent 22%),
-        radial-gradient(circle at 90% 12%, rgba(140,99,255,0.16), transparent 22%),
-        radial-gradient(circle at 50% 100%, rgba(97,231,255,0.12), transparent 25%),
-        linear-gradient(180deg, #05060a 0%, #0a0d16 48%, #05060a 100%);
+        radial-gradient(circle at 10% 8%, rgba(121,167,255,.15), transparent 22%),
+        radial-gradient(circle at 90% 10%, rgba(224,200,150,.10), transparent 24%),
+        radial-gradient(circle at 50% 100%, rgba(127,230,255,.07), transparent 25%),
+        linear-gradient(180deg, #05060a 0%, #090c13 48%, #05060a 100%);
       min-height:100vh;
       overflow-x:hidden;
+      letter-spacing:-0.02em;
     }
 
     body::before{
@@ -56,11 +68,20 @@
       inset:0;
       pointer-events:none;
       background-image:
-        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-      background-size:34px 34px;
-      mask-image:radial-gradient(circle at center, black 35%, transparent 90%);
+        linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px);
+      background-size:38px 38px;
+      mask-image:radial-gradient(circle at center, black 32%, transparent 88%);
       opacity:.55;
+      z-index:0;
+    }
+
+    body::after{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background:radial-gradient(circle at center, transparent 0%, rgba(0,0,0,.10) 60%, rgba(0,0,0,.34) 100%);
       z-index:0;
     }
 
@@ -74,17 +95,27 @@
     }
 
     .glass{
-      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
-      backdrop-filter:blur(16px);
-      -webkit-backdrop-filter:blur(16px);
+      background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+      backdrop-filter:blur(18px);
+      -webkit-backdrop-filter:blur(18px);
       border:1px solid var(--line);
       box-shadow:var(--shadow);
     }
 
+    .subtle-glass{
+      background:linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.028));
+      backdrop-filter:blur(14px);
+      -webkit-backdrop-filter:blur(14px);
+      border:1px solid var(--line2);
+    }
+
     .topbar{
       padding:14px 0 0;
-      position:relative;
-      z-index:20;
+      position:sticky;
+      top:0;
+      z-index:100;
+      backdrop-filter:blur(14px);
+      -webkit-backdrop-filter:blur(14px);
     }
 
     .nav{
@@ -94,7 +125,7 @@
       align-items:center;
       justify-content:space-between;
       gap:16px;
-      min-height:64px;
+      min-height:68px;
     }
 
     .logo{
@@ -106,39 +137,43 @@
     }
 
     .logo-badge{
-      width:40px;
-      height:40px;
+      width:42px;
+      height:42px;
       border-radius:14px;
-      background:linear-gradient(135deg, var(--blue), var(--purple));
       display:grid;
       place-items:center;
+      font-size:12px;
       font-weight:900;
-      font-size:13px;
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.25);
+      color:#0b0d14;
+      background:linear-gradient(135deg, #f8ecd2 0%, #dcc18a 45%, #8f724c 100%);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.40),
+        0 12px 30px rgba(224,200,150,.16);
       flex-shrink:0;
     }
 
     .logo-text strong{
       display:block;
-      font-size:14px;
-      letter-spacing:.18em;
+      font-size:13px;
+      letter-spacing:.20em;
       line-height:1;
+      text-transform:uppercase;
     }
 
     .logo-text span{
       display:block;
+      margin-top:6px;
       color:var(--muted);
       font-size:11px;
       letter-spacing:.12em;
-      margin-top:5px;
       text-transform:uppercase;
       line-height:1;
     }
 
     .nav-links{
       display:flex;
-      align-items:center;
       gap:6px;
+      align-items:center;
       flex-wrap:wrap;
       justify-content:center;
     }
@@ -152,8 +187,8 @@
     }
 
     .nav-links a:hover{
-      background:rgba(255,255,255,.06);
       color:#fff;
+      background:rgba(255,255,255,.06);
     }
 
     .nav-cta{
@@ -168,14 +203,14 @@
       outline:0;
       cursor:pointer;
       font:inherit;
-      transition:.25s ease;
       border-radius:999px;
       display:inline-flex;
       align-items:center;
       justify-content:center;
       gap:10px;
-      font-weight:700;
+      transition:.24s ease;
       white-space:nowrap;
+      font-weight:700;
     }
 
     .btn-sm{
@@ -191,33 +226,29 @@
     }
 
     .btn-primary{
-      color:#fff;
-      background:linear-gradient(135deg, var(--blue), var(--purple));
-      box-shadow:0 14px 32px rgba(93,162,255,.28);
+      color:#0a0d14;
+      background:linear-gradient(135deg, #f8ecd2 0%, #dfc28f 45%, #9a8058 100%);
+      box-shadow:0 14px 34px rgba(224,200,150,.18);
     }
 
-    .btn-primary:hover{
+    .btn-primary:hover,
+    .btn-dark:hover{
       transform:translateY(-2px);
     }
 
     .btn-dark{
       color:#fff;
-      background:rgba(255,255,255,.06);
+      background:rgba(255,255,255,.055);
       border:1px solid var(--line);
     }
 
-    .btn-dark:hover{
-      transform:translateY(-2px);
-      background:rgba(255,255,255,.09);
-    }
-
     .hero{
-      padding:28px 0 22px;
+      padding:28px 0 20px;
     }
 
     .hero-grid{
       display:grid;
-      grid-template-columns:1.14fr .86fr;
+      grid-template-columns:1.12fr .88fr;
       gap:18px;
     }
 
@@ -229,28 +260,30 @@
       overflow:hidden;
     }
 
-    .hero-main::before{
+    .hero-main::before,
+    .cta-box::before{
       content:"";
       position:absolute;
-      width:520px;
-      height:520px;
-      right:-140px;
-      bottom:-180px;
+      width:480px;
+      height:480px;
+      right:-120px;
+      bottom:-170px;
       border-radius:50%;
-      background:radial-gradient(circle, rgba(93,162,255,.22), transparent 62%);
+      background:radial-gradient(circle, rgba(121,167,255,.18), transparent 62%);
       filter:blur(20px);
       pointer-events:none;
     }
 
-    .hero-main::after{
+    .hero-main::after,
+    .cta-box::after{
       content:"";
       position:absolute;
       width:380px;
       height:380px;
-      left:-90px;
-      top:-140px;
+      left:-80px;
+      top:-120px;
       border-radius:50%;
-      background:radial-gradient(circle, rgba(140,99,255,.18), transparent 60%);
+      background:radial-gradient(circle, rgba(224,200,150,.12), transparent 60%);
       filter:blur(24px);
       pointer-events:none;
     }
@@ -267,7 +300,7 @@
       font-weight:800;
       letter-spacing:.14em;
       text-transform:uppercase;
-      color:#e3ebff;
+      color:#e5ecff;
     }
 
     .dot{
@@ -275,28 +308,28 @@
       height:9px;
       border-radius:50%;
       background:linear-gradient(135deg, var(--green), var(--cyan));
-      box-shadow:0 0 18px rgba(73,242,167,.7);
+      box-shadow:0 0 18px rgba(122,240,188,.6);
     }
 
     h1{
       margin-top:18px;
       font-size:clamp(42px, 7vw, 92px);
-      line-height:.93;
-      letter-spacing:-.055em;
+      line-height:.92;
+      letter-spacing:-.06em;
       font-weight:900;
-      max-width:850px;
+      max-width:920px;
     }
 
     .gradient{
-      background:linear-gradient(90deg, #fff 0%, #d8e5ff 22%, #91f6ff 50%, #a8b7ff 76%, #fff 100%);
+      background:linear-gradient(90deg, #fff 0%, #dce7ff 22%, #9aeaff 50%, #d9c392 78%, #fff 100%);
       -webkit-background-clip:text;
       -webkit-text-fill-color:transparent;
     }
 
     .lead{
       margin-top:18px;
-      max-width:700px;
-      color:var(--muted);
+      max-width:760px;
+      color:var(--muted2);
       font-size:18px;
       line-height:1.75;
     }
@@ -309,10 +342,10 @@
     }
 
     .live-strip{
+      margin-top:24px;
       display:grid;
       grid-template-columns:repeat(4, minmax(0,1fr));
       gap:12px;
-      margin-top:24px;
     }
 
     .live-box{
@@ -320,7 +353,7 @@
       padding:16px;
       background:rgba(255,255,255,.045);
       border:1px solid var(--line);
-      min-height:118px;
+      min-height:120px;
     }
 
     .live-box small{
@@ -342,7 +375,7 @@
       display:block;
       margin-top:10px;
       color:#dce6ff;
-      line-height:1.5;
+      line-height:1.55;
       font-size:13px;
     }
 
@@ -350,17 +383,18 @@
       border-radius:26px;
       padding:22px;
       background:
-        radial-gradient(circle at top right, rgba(93,162,255,.18), transparent 36%),
+        radial-gradient(circle at top right, rgba(121,167,255,.14), transparent 36%),
         linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
       border:1px solid var(--line);
-      min-height:245px;
+      min-height:250px;
     }
 
-    .signal-panel h3{
-      font-size:14px;
+    .signal-panel h3,
+    .small-label{
+      font-size:12px;
       letter-spacing:.16em;
       text-transform:uppercase;
-      color:#dce6ff;
+      color:#dfe8ff;
     }
 
     .signal-stack{
@@ -402,11 +436,12 @@
       text-transform:uppercase;
       letter-spacing:.08em;
       white-space:nowrap;
+      color:#09131d;
     }
 
-    .tag-blue{ background:linear-gradient(135deg,#74bbff,#9ff6ff); color:#071522; }
-    .tag-green{ background:linear-gradient(135deg,#59ffbe,#a4ffe0); color:#07130e; }
-    .tag-orange{ background:linear-gradient(135deg,#ffc56b,#ffe3a0); color:#241305; }
+    .tag-blue{ background:linear-gradient(135deg,#8bc0ff,#9af2ff); }
+    .tag-green{ background:linear-gradient(135deg,#7cf2c5,#b1ffe5); }
+    .tag-gold{ background:linear-gradient(135deg,#f4ddb1,#dcc18a); }
 
     .side-grid{
       display:grid;
@@ -418,7 +453,7 @@
     .mini{
       border-radius:24px;
       padding:18px;
-      background:rgba(255,255,255,.05);
+      background:rgba(255,255,255,.045);
       border:1px solid var(--line);
       min-height:180px;
     }
@@ -435,15 +470,15 @@
       display:block;
       margin-top:14px;
       font-size:24px;
-      line-height:1.05;
+      line-height:1.06;
       letter-spacing:-.04em;
     }
 
     .mini p{
       margin-top:12px;
-      color:var(--muted);
+      color:var(--muted2);
       font-size:14px;
-      line-height:1.65;
+      line-height:1.68;
     }
 
     .section{
@@ -460,15 +495,15 @@
     }
 
     .section-head h2{
-      font-size:clamp(30px, 4.4vw, 58px);
+      font-size:clamp(30px, 4.5vw, 58px);
       line-height:.95;
       letter-spacing:-.05em;
     }
 
     .section-head p{
-      max-width:620px;
-      color:var(--muted);
-      line-height:1.75;
+      max-width:660px;
+      color:var(--muted2);
+      line-height:1.78;
       font-size:16px;
     }
 
@@ -476,6 +511,12 @@
       display:grid;
       grid-template-columns:1fr 1fr;
       gap:18px;
+    }
+
+    .three-col{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0,1fr));
+      gap:16px;
     }
 
     .panel{
@@ -490,7 +531,7 @@
 
     .panel .sub{
       margin-top:10px;
-      color:var(--muted);
+      color:var(--muted2);
       font-size:15px;
       line-height:1.75;
     }
@@ -501,14 +542,19 @@
       gap:14px;
     }
 
-    .pulse-card{
+    .pulse-card,
+    .news-card,
+    .idea,
+    .partner-card{
       border-radius:22px;
       padding:18px;
       background:rgba(255,255,255,.045);
       border:1px solid var(--line);
     }
 
-    .pulse-card small{
+    .pulse-card small,
+    .news-card small,
+    .partner-card small{
       display:block;
       color:var(--muted);
       font-size:11px;
@@ -517,16 +563,20 @@
       margin-bottom:10px;
     }
 
-    .pulse-card strong{
+    .pulse-card strong,
+    .news-card strong,
+    .partner-card strong{
       display:block;
       font-size:20px;
       line-height:1.45;
       color:#eef3ff;
     }
 
-    .pulse-card p{
+    .pulse-card p,
+    .news-card p,
+    .partner-card p{
       margin-top:12px;
-      color:var(--muted);
+      color:var(--muted2);
       line-height:1.7;
       font-size:14px;
     }
@@ -535,7 +585,7 @@
       margin-top:18px;
       border-radius:24px;
       padding:22px;
-      background:linear-gradient(135deg, rgba(93,162,255,.12), rgba(140,99,255,.10));
+      background:linear-gradient(135deg, rgba(121,167,255,.10), rgba(224,200,150,.08));
       border:1px solid rgba(255,255,255,.10);
     }
 
@@ -576,7 +626,8 @@
       width:42px;
       height:42px;
       border-radius:14px;
-      background:linear-gradient(135deg, var(--blue), var(--purple));
+      background:linear-gradient(135deg, #f5e0b2, #8f7450);
+      color:#0b0d14;
       display:grid;
       place-items:center;
       font-weight:900;
@@ -591,25 +642,21 @@
 
     .manifesto-item p{
       margin-top:7px;
-      color:var(--muted);
-      line-height:1.7;
+      color:var(--muted2);
+      line-height:1.72;
       font-size:14px;
     }
 
-    .ideas{
-      display:grid;
-      grid-template-columns:repeat(3, minmax(0,1fr));
-      gap:16px;
-    }
-
     .idea{
-      border-radius:28px;
-      padding:22px;
-      min-height:240px;
-      transition:.25s ease;
+      min-height:245px;
+      transition:.24s ease;
     }
 
-    .idea:hover{ transform:translateY(-5px); }
+    .idea:hover,
+    .news-card:hover,
+    .partner-card:hover{
+      transform:translateY(-4px);
+    }
 
     .icon{
       width:54px;
@@ -624,15 +671,114 @@
 
     .idea h4{
       margin-top:16px;
-      font-size:19px;
+      font-size:20px;
       letter-spacing:-.03em;
     }
 
     .idea p{
       margin-top:12px;
-      color:var(--muted);
+      color:var(--muted2);
       line-height:1.75;
       font-size:14px;
+    }
+
+    .news-grid{
+      display:grid;
+      grid-template-columns:1.15fr .85fr;
+      gap:18px;
+    }
+
+    .news-list{
+      display:grid;
+      gap:14px;
+    }
+
+    .news-badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      background:rgba(255,255,255,.05);
+      border:1px solid var(--line);
+      color:#e5ecff;
+      margin-bottom:14px;
+    }
+
+    .founder-box{
+      border-radius:30px;
+      padding:24px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .founder-box::before{
+      content:"";
+      position:absolute;
+      width:320px;
+      height:320px;
+      right:-70px;
+      top:-100px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(224,200,150,.14), transparent 64%);
+      filter:blur(18px);
+      pointer-events:none;
+    }
+
+    .founder-title{
+      font-size:clamp(30px, 4vw, 54px);
+      line-height:.95;
+      letter-spacing:-.05em;
+      max-width:700px;
+    }
+
+    .founder-text{
+      margin-top:16px;
+      max-width:780px;
+      color:var(--muted2);
+      font-size:16px;
+      line-height:1.85;
+    }
+
+    .founder-metrics{
+      margin-top:20px;
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0,1fr));
+      gap:12px;
+    }
+
+    .metric{
+      border-radius:22px;
+      padding:16px;
+      background:rgba(255,255,255,.045);
+      border:1px solid var(--line);
+    }
+
+    .metric small{
+      display:block;
+      color:var(--muted);
+      font-size:11px;
+      letter-spacing:.13em;
+      text-transform:uppercase;
+    }
+
+    .metric strong{
+      display:block;
+      margin-top:10px;
+      font-size:22px;
+      line-height:1.15;
+    }
+
+    .metric span{
+      display:block;
+      margin-top:10px;
+      color:var(--muted2);
+      font-size:13px;
+      line-height:1.6;
     }
 
     .cta{
@@ -644,32 +790,6 @@
       padding:28px;
       position:relative;
       overflow:hidden;
-    }
-
-    .cta-box::before{
-      content:"";
-      position:absolute;
-      width:420px;
-      height:420px;
-      left:-120px;
-      bottom:-180px;
-      border-radius:50%;
-      background:radial-gradient(circle, rgba(93,162,255,.18), transparent 62%);
-      filter:blur(20px);
-      pointer-events:none;
-    }
-
-    .cta-box::after{
-      content:"";
-      position:absolute;
-      width:360px;
-      height:360px;
-      right:-100px;
-      top:-140px;
-      border-radius:50%;
-      background:radial-gradient(circle, rgba(140,99,255,.16), transparent 62%);
-      filter:blur(22px);
-      pointer-events:none;
     }
 
     .cta-grid{
@@ -691,7 +811,7 @@
     .cta p{
       margin-top:16px;
       max-width:690px;
-      color:var(--muted);
+      color:var(--muted2);
       line-height:1.8;
       font-size:16px;
     }
@@ -766,8 +886,9 @@
     @media (max-width: 1120px){
       .hero-grid,
       .two-col,
-      .cta-grid,
-      .ideas{
+      .three-col,
+      .news-grid,
+      .cta-grid{
         grid-template-columns:1fr;
       }
     }
@@ -798,13 +919,15 @@
       .hero-main,
       .hero-side,
       .panel,
-      .cta-box{
+      .cta-box,
+      .founder-box{
         border-radius:26px;
         padding:20px;
       }
 
       .live-strip,
-      .side-grid{
+      .side-grid,
+      .founder-metrics{
         grid-template-columns:1fr 1fr;
       }
     }
@@ -837,7 +960,8 @@
       }
 
       .live-strip,
-      .side-grid{
+      .side-grid,
+      .founder-metrics{
         grid-template-columns:1fr;
       }
 
@@ -856,7 +980,8 @@
       }
 
       .section-head h2,
-      .cta h2{
+      .cta h2,
+      .founder-title{
         font-size:38px;
       }
     }
@@ -866,22 +991,24 @@
   <div class="container topbar">
     <div class="nav glass">
       <div class="logo">
-        <div class="logo-badge">S/1</div>
+        <div class="logo-badge">SC</div>
         <div class="logo-text">
-          <strong>SIGNAL/ONE</strong>
-          <span>Living internet idea</span>
+          <strong>SLAVCOIN</strong>
+          <span>Living brand platform</span>
         </div>
       </div>
 
       <div class="nav-links">
         <a href="#today">Today</a>
         <a href="#manifesto">Manifesto</a>
-        <a href="#ideas">Value</a>
+        <a href="#founder">Founder</a>
+        <a href="#news">News</a>
+        <a href="#value">Value</a>
         <a href="#contact">Contact</a>
       </div>
 
       <div class="nav-cta">
-        <a class="btn btn-sm btn-dark" href="#today">Read today's signal</a>
+        <a class="btn btn-sm btn-dark" href="#news">Latest updates</a>
         <a class="btn btn-sm btn-primary" href="#contact">Work with me</a>
       </div>
     </div>
@@ -897,15 +1024,14 @@
           </div>
 
           <h1>
-            <span class="gradient">A website people might actually</span><br>
-            stop and read.
+            <span class="gradient">A premium digital concept</span><br>
+            that feels alive.
           </h1>
 
           <p class="lead">
-            SIGNAL/ONE is a living internet concept. It changes with time, generates a new daily signal,
-            shifts its message every day, and presents itself like a premium digital manifesto instead of
-            another empty landing page. The point is simple: build something that feels alive, memorable,
-            and worth talking about.
+            SLAVCOIN is a living internet platform. It changes with time, publishes a daily signal,
+            updates its mission, shifts its mood, and presents itself as a premium digital object instead
+            of a static landing page. The goal is simple: build something memorable, high-value, and worth revisiting.
           </p>
 
           <div class="hero-actions">
@@ -929,7 +1055,7 @@
             <div class="live-box">
               <small>Next refresh</small>
               <strong id="nextReset">—</strong>
-              <span>Countdown to tomorrow's new daily signal.</span>
+              <span>Countdown to tomorrow’s new daily signal.</span>
             </div>
 
             <div class="live-box">
@@ -966,7 +1092,7 @@
                   <strong id="focusTitle">Loading focus...</strong>
                   <span id="focusSubtitle">A changing idea to think about.</span>
                 </div>
-                <div class="tag tag-orange">Now</div>
+                <div class="tag tag-gold">Now</div>
               </div>
             </div>
           </div>
@@ -976,15 +1102,15 @@
               <small>Why it exists</small>
               <strong>To feel alive</strong>
               <p>
-                Static sites die fast. A living site creates curiosity, repeat visits, and stronger identity.
+                Static websites go stale. A living site creates curiosity, repeat visits, stronger identity, and premium presence.
               </p>
             </div>
 
             <div class="mini">
               <small>What it can become</small>
-              <strong>Media object</strong>
+              <strong>Brand asset</strong>
               <p>
-                A manifesto page, campaign object, collab portal, founder page, or brand thought machine.
+                A concept site, founder page, acquisition-ready digital object, partnership landing, or cultural media layer.
               </p>
             </div>
 
@@ -992,7 +1118,7 @@
               <small>What updates</small>
               <strong>Message + mood</strong>
               <p>
-                Daily signal, daily mission, live time, countdown, phase-of-day tone, and dynamic text.
+                Daily signal, daily mission, live clock, countdown, phase-of-day tone, and rotating dynamic meaning.
               </p>
             </div>
 
@@ -1000,7 +1126,7 @@
               <small>What matters</small>
               <strong>People read it</strong>
               <p>
-                Good design is not enough. The page needs meaning, tension, rhythm, and something to return to.
+                Great design is not enough. The page needs rhythm, tension, value, and a reason to return.
               </p>
             </div>
           </div>
@@ -1011,19 +1137,16 @@
     <section class="section" id="today">
       <div class="container">
         <div class="section-head reveal">
-          <h2>Today's signal</h2>
+          <h2>Today’s signal</h2>
           <p>
-            Every day this page shows a different theme, a different mission, and a different idea focus.
-            That gives it a reason to exist tomorrow, not just today.
+            Every day this page presents a new theme, mission, and angle. That gives it a reason to exist tomorrow, not only today.
           </p>
         </div>
 
         <div class="two-col">
           <div class="panel glass reveal">
             <h3 id="dailyHeadline">Loading today's headline...</h3>
-            <p class="sub" id="dailyBody">
-              Loading message...
-            </p>
+            <p class="sub" id="dailyBody">Loading message...</p>
 
             <div class="quote-box">
               <blockquote id="dailyQuote">“Loading quote...”</blockquote>
@@ -1032,23 +1155,23 @@
           </div>
 
           <div class="panel glass reveal">
-            <h3>How this updates 24/7</h3>
+            <h3>How it works 24/7</h3>
             <p class="sub">
-              This version updates itself from time and date logic directly in the browser.
-              No manual edits needed for the daily changes, countdown, live clock, or mood shifts.
+              This version updates itself directly in the browser using date and time logic.
+              No manual refresh of content is needed for the daily message, live clock, countdown, or mood state.
             </p>
 
             <div class="pulse">
               <div class="pulse-card">
                 <small>Daily mission</small>
                 <strong id="dailyMissionCard">Loading...</strong>
-                <p>One task. One thought. One action. The page changes the challenge every day.</p>
+                <p>One thought, one move, one direction. The page changes the challenge every day.</p>
               </div>
 
               <div class="pulse-card">
                 <small>Current focus</small>
                 <strong id="currentFocusCard">Loading...</strong>
-                <p>This is the main emotional or strategic theme the page wants to push right now.</p>
+                <p>This is the main strategic or emotional direction the page is pushing right now.</p>
               </div>
 
               <div class="pulse-card">
@@ -1067,8 +1190,7 @@
         <div class="section-head reveal">
           <h2>Manifesto</h2>
           <p>
-            If someone asks “what is the point?”, this is the answer. The site is about signal, memory,
-            attention, future, identity, and building something that does not feel disposable.
+            This project is about signal, memory, attention, identity, future, and building something that doesn’t feel disposable.
           </p>
         </div>
 
@@ -1080,8 +1202,8 @@
               <div class="manifesto-item">
                 <div class="num">1</div>
                 <div>
-                  <strong>The internet needs more memorable places.</strong>
-                  <p>Not every page should feel like a template. Some should feel like a thought worth returning to.</p>
+                  <strong>The internet needs memorable places.</strong>
+                  <p>Not every site should feel like a template. Some should feel like a thought worth returning to.</p>
                 </div>
               </div>
 
@@ -1089,7 +1211,7 @@
                 <div class="num">2</div>
                 <div>
                   <strong>Design without meaning dies fast.</strong>
-                  <p>Style matters, but identity matters more. A good site needs a reason to exist.</p>
+                  <p>Style matters, but identity matters more. A strong site needs a reason to exist.</p>
                 </div>
               </div>
 
@@ -1097,21 +1219,21 @@
                 <div class="num">3</div>
                 <div>
                   <strong>Daily change creates habit.</strong>
-                  <p>When the page shifts every day, it invites re-entry. That is how a site starts feeling alive.</p>
+                  <p>When the page shifts every day, it invites re-entry. That is how a digital object starts feeling alive.</p>
                 </div>
               </div>
             </div>
           </div>
 
           <div class="panel glass reveal">
-            <h3>What companies could see in it</h3>
+            <h3>Why it matters commercially</h3>
 
             <div class="manifesto">
               <div class="manifesto-item">
                 <div class="num">4</div>
                 <div>
                   <strong>A campaign object.</strong>
-                  <p>Brands could use a system like this for launches, creative drops, and community activations.</p>
+                  <p>Brands can use a system like this for launches, creative drops, limited activations, or premium positioning.</p>
                 </div>
               </div>
 
@@ -1119,15 +1241,15 @@
                 <div class="num">5</div>
                 <div>
                   <strong>A founder identity page.</strong>
-                  <p>It can work as a premium digital home for someone building media, products, or culture.</p>
+                  <p>It can work as a premium digital home for someone building products, media, or culture.</p>
                 </div>
               </div>
 
               <div class="manifesto-item">
                 <div class="num">6</div>
                 <div>
-                  <strong>A living manifesto engine.</strong>
-                  <p>Not a one-time announcement, but a page that keeps speaking every day without looking abandoned.</p>
+                  <strong>An acquisition-ready asset.</strong>
+                  <p>Not just a page, but a branded concept with identity, repetition, perceived value, and expansion potential.</p>
                 </div>
               </div>
             </div>
@@ -1136,39 +1258,166 @@
       </div>
     </section>
 
-    <section class="section" id="ideas">
+    <section class="section" id="founder">
+      <div class="container">
+        <div class="founder-box glass reveal">
+          <div class="eyebrow">
+            <span class="dot"></span>
+            founder note
+          </div>
+
+          <h2 class="founder-title">I’m 20, and my talent is real.</h2>
+
+          <p class="founder-text">
+            I understand youth culture, digital attention, internet behavior, branding, and how modern audiences react to ideas.
+            I can turn raw vision into concepts that feel alive, current, and memorable. I move fast, think visually, and understand
+            what people actually notice online. I’m looking for the right opportunity, collaboration, reward, or team that values real instinct.
+          </p>
+
+          <div class="founder-metrics">
+            <div class="metric">
+              <small>Strength</small>
+              <strong>Creative instinct</strong>
+              <span>Strong sense of attention, culture, brand feeling, and internet-native presentation.</span>
+            </div>
+
+            <div class="metric">
+              <small>Value</small>
+              <strong>Fast execution</strong>
+              <span>I can turn ideas into visible concepts quickly and make them feel premium, sharp, and sellable.</span>
+            </div>
+
+            <div class="metric">
+              <small>Direction</small>
+              <strong>Right opportunity</strong>
+              <span>Open to collaboration, reward, partnership, acquisition talks, or work with a strong team.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="news">
       <div class="container">
         <div class="section-head reveal">
-          <h2>Why this has value</h2>
+          <h2>News & updates</h2>
           <p>
-            The site is stronger now because it has a clear role. It is a premium living concept page,
-            not random blocks with nice gradients.
+            This block makes the project feel active and current. It gives the visitor something new to scan fast and keeps the site from feeling frozen.
           </p>
         </div>
 
-        <div class="ideas">
+        <div class="news-grid">
+          <div class="panel glass reveal">
+            <div class="news-badge">Live updates</div>
+            <div class="news-list">
+              <div class="news-card">
+                <small>Status</small>
+                <strong>Platform is live and evolving.</strong>
+                <p>
+                  The project already runs as a living site with dynamic daily content, live clock logic, changing mood, and a premium presentation layer.
+                </p>
+              </div>
+
+              <div class="news-card">
+                <small>Current direction</small>
+                <strong>Built to become a premium digital asset.</strong>
+                <p>
+                  The goal is to make the platform presentable to brands, collaborators, buyers, and future-facing teams as a strong internet concept.
+                </p>
+              </div>
+
+              <div class="news-card">
+                <small>Open</small>
+                <strong>Collaboration, reward, work, or acquisition conversations.</strong>
+                <p>
+                  The site is positioned not only as a personal concept, but as a premium object that can evolve into a real commercial or cultural product.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel glass reveal">
+            <h3>Why this block matters</h3>
+            <p class="sub">
+              A premium site should not only look expensive. It should feel current, active, and moving. This section gives the project visible motion.
+            </p>
+
+            <div class="pulse">
+              <div class="pulse-card">
+                <small>For brands</small>
+                <strong>Feels maintained and alive</strong>
+                <p>That raises trust, attention, and perceived value.</p>
+              </div>
+
+              <div class="pulse-card">
+                <small>For buyers</small>
+                <strong>Shows momentum</strong>
+                <p>A moving project feels more valuable than a static file sitting online.</p>
+              </div>
+
+              <div class="pulse-card">
+                <small>For opportunity</small>
+                <strong>Creates a reason to reach out</strong>
+                <p>It turns the site from a visual page into a living point of contact.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="value">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>Use cases & value</h2>
+          <p>
+            The project is stronger when people instantly understand what it can become. These blocks make it feel more buyable.
+          </p>
+        </div>
+
+        <div class="three-col">
           <div class="idea glass reveal">
             <div class="icon">◉</div>
-            <h4>It feels current every day</h4>
+            <h4>Founder platform</h4>
             <p>
-              Most personal or concept sites become stale in a week. This one keeps a changing front layer.
+              A premium digital home for a creator, builder, operator, or founder who wants to feel current instead of static.
             </p>
           </div>
 
           <div class="idea glass reveal">
             <div class="icon">✦</div>
-            <h4>It can become a brand system</h4>
+            <h4>Brand campaign layer</h4>
             <p>
-              Daily prompts, signal drops, themes, missions, seasonal modes, and future branded editions.
+              A living concept page for launches, message rotation, daily drops, limited campaigns, or premium brand storytelling.
             </p>
           </div>
 
           <div class="idea glass reveal">
             <div class="icon">⚡</div>
-            <h4>It gives people a reason to stay</h4>
+            <h4>Acquisition-ready asset</h4>
             <p>
-              A visitor sees a message, a mission, a quote, a live timer, and a clear person to contact.
+              A branded object with structure, identity, repeat value, and perceived future potential instead of a plain landing page.
             </p>
+          </div>
+        </div>
+
+        <div class="three-col" style="margin-top:16px;">
+          <div class="partner-card subtle-glass reveal">
+            <small>For partnerships</small>
+            <strong>A premium first impression.</strong>
+            <p>Useful for brand intros, media decks, creative positioning, or direct outreach.</p>
+          </div>
+
+          <div class="partner-card subtle-glass reveal">
+            <small>For teams</small>
+            <strong>A proof of digital taste.</strong>
+            <p>Shows how concept, design, structure, and motion can be combined into a coherent brand object.</p>
+          </div>
+
+          <div class="partner-card subtle-glass reveal">
+            <small>For opportunity</small>
+            <strong>A better way to be remembered.</strong>
+            <p>Instead of just saying “I’m talented,” the site demonstrates attention to detail and premium thinking.</p>
           </div>
         </div>
       </div>
@@ -1184,15 +1433,14 @@
                 contact and collaboration
               </div>
 
-              <h2>If this idea speaks to you, reach out.</h2>
+              <h2>If this feels valuable, let’s talk.</h2>
               <p>
-                SIGNAL/ONE can evolve into a founder page, a premium concept site, a brand manifesto,
-                a campaign object, or a digital experience framework. This version is built as a sharp,
-                public-facing starting point.
+                I’m open to collaboration, opportunity, reward, concept work, creative partnerships, premium site builds,
+                and conversations with teams or companies that value originality, speed, and real digital instinct.
               </p>
 
               <div class="cta-actions">
-                <a class="btn btn-lg btn-primary" href="mailto:dmytro.lyashok@icloud.com?subject=SIGNAL%2FONE%20Collaboration">Email me</a>
+                <a class="btn btn-lg btn-primary" href="mailto:dmytro.lyashok@icloud.com?subject=SLAVCOIN%20Opportunity">Email me</a>
                 <button class="btn btn-lg btn-dark" id="copyEmailBtn">Copy email</button>
               </div>
             </div>
@@ -1201,7 +1449,7 @@
               <small>Direct contact</small>
               <strong id="emailText">dmytro.lyashok@icloud.com</strong>
               <p>
-                For collaborations, design work, concept development, partnerships, or custom versions of this project.
+                For collaborations, premium web concepts, partnerships, opportunities, or strategic conversations around the project.
               </p>
             </div>
           </div>
@@ -1211,8 +1459,8 @@
 
     <div class="container footer">
       <div class="footer-box">
-        <div>SIGNAL/ONE © 2026</div>
-        <div>Premium one-file site • English version • Dynamic daily content</div>
+        <div>SLAVCOIN © 2026</div>
+        <div>Premium one-file site • Dynamic daily content • Living brand platform</div>
       </div>
     </div>
   </main>
@@ -1292,22 +1540,10 @@
     ];
 
     const phases = [
-      {
-        name: "Morning mode",
-        desc: "Reset, direction, beginning energy."
-      },
-      {
-        name: "Day mode",
-        desc: "Execution, clarity, visible movement."
-      },
-      {
-        name: "Evening mode",
-        desc: "Reflection, refinement, deeper thought."
-      },
-      {
-        name: "Night mode",
-        desc: "Silence, future, hidden planning."
-      }
+      { name: "Morning mode", desc: "Reset, direction, beginning energy." },
+      { name: "Day mode", desc: "Execution, clarity, visible movement." },
+      { name: "Evening mode", desc: "Reflection, refinement, deeper thought." },
+      { name: "Night mode", desc: "Silence, future, hidden planning." }
     ];
 
     function getDayIndex(date) {
@@ -1330,7 +1566,6 @@
 
     function updateClock() {
       const now = new Date();
-
       const hours = now.getHours();
       const minutes = now.getMinutes();
       const seconds = now.getSeconds();
@@ -1396,35 +1631,30 @@
         if (entry.isIntersecting) entry.target.classList.add("show");
       });
     }, { threshold: 0.12 });
-
     revealItems.forEach(el => io.observe(el));
 
     document.getElementById("copyEmailBtn").addEventListener("click", async () => {
       const email = "dmytro.lyashok@icloud.com";
+      const btn = document.getElementById("copyEmailBtn");
       try {
         await navigator.clipboard.writeText(email);
-        const btn = document.getElementById("copyEmailBtn");
         btn.textContent = "Email copied";
-        setTimeout(() => btn.textContent = "Copy email", 1600);
       } catch {
-        const btn = document.getElementById("copyEmailBtn");
         btn.textContent = "Copy failed";
-        setTimeout(() => btn.textContent = "Copy email", 1600);
       }
+      setTimeout(() => btn.textContent = "Copy email", 1600);
     });
 
     document.getElementById("copyMainPitch").addEventListener("click", async () => {
-      const text = "SIGNAL/ONE is a premium living concept site that changes every day using time-based logic. It works as a digital manifesto, founder identity page, brand concept platform, or campaign object designed to feel alive, memorable, and worth revisiting.";
+      const text = "SLAVCOIN is a premium living digital platform that changes every day using time-based logic. It works as a founder identity page, brand concept system, campaign object, or acquisition-ready internet asset designed to feel alive, current, and memorable.";
+      const btn = document.getElementById("copyMainPitch");
       try {
         await navigator.clipboard.writeText(text);
-        const btn = document.getElementById("copyMainPitch");
         btn.textContent = "Pitch copied";
-        setTimeout(() => btn.textContent = "Copy pitch text", 1600);
       } catch {
-        const btn = document.getElementById("copyMainPitch");
         btn.textContent = "Copy failed";
-        setTimeout(() => btn.textContent = "Copy pitch text", 1600);
       }
+      setTimeout(() => btn.textContent = "Copy pitch text", 1600);
     });
   </script>
 </body>
