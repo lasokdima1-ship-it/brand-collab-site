@@ -2,153 +2,1622 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>COLLABVERSE — Future Brand Experience</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>COLLABVERSE — Future Brand Experience Platform</title>
+  <meta name="description" content="A premium interactive concept platform inspired by the energy of world-class tech, media, and lifestyle brands." />
+  <meta property="og:title" content="COLLABVERSE" />
+  <meta property="og:description" content="Future Brand Experience Platform" />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
-    * {margin:0;padding:0;box-sizing:border-box;}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #05070c;
+      --bg-2: #0a0f1c;
+      --card: rgba(255,255,255,0.07);
+      --card-2: rgba(255,255,255,0.05);
+      --line: rgba(255,255,255,0.11);
+      --text: #f6f8ff;
+      --muted: #9aa6bd;
+      --blue: #4f8cff;
+      --purple: #8b5cf6;
+      --cyan: #22d3ee;
+      --green: #2de38e;
+      --yellow: #fbbf24;
+      --red: #ff4d6d;
+      --shadow: 0 25px 80px rgba(0,0,0,0.45);
+      --radius: 28px;
+      --radius-sm: 20px;
+      --max: 1320px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(180deg,#05060a,#0b0f1c);
-      color:#fff;
+      font-family: "Inter", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 10% 10%, rgba(79,140,255,0.18), transparent 22%),
+        radial-gradient(circle at 90% 14%, rgba(139,92,246,0.14), transparent 20%),
+        radial-gradient(circle at 50% 100%, rgba(34,211,238,0.12), transparent 22%),
+        linear-gradient(180deg, #04060a 0%, #09101b 50%, #04070d 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: radial-gradient(circle at center, black 35%, transparent 85%);
+      opacity: 0.6;
+      z-index: 0;
+    }
+
+    .cursor-glow {
+      position: fixed;
+      width: 420px;
+      height: 420px;
+      left: 0;
+      top: 0;
+      border-radius: 50%;
+      pointer-events: none;
+      background: radial-gradient(circle, rgba(79,140,255,0.16), transparent 62%);
+      transform: translate(-50%, -50%);
+      z-index: 0;
+      filter: blur(14px);
+      transition: transform 0.08s linear;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
     }
 
     .container {
-      max-width:1200px;
-      margin:auto;
-      padding:40px 20px;
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
     }
 
-    h1 {
-      font-size:60px;
-      text-align:center;
-      background:linear-gradient(90deg,#4c8dff,#8b5cf6,#22d3ee);
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
+    .glass {
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
     }
 
-    p {
-      text-align:center;
-      color:#aaa;
-      margin-top:10px;
+    .topbar {
+      position: sticky;
+      top: 14px;
+      z-index: 30;
+      padding-top: 14px;
     }
 
-    .brands {
-      display:flex;
-      gap:20px;
-      justify-content:center;
-      margin-top:40px;
-      flex-wrap:wrap;
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 14px 18px;
+      border-radius: 999px;
     }
 
     .brand {
-      padding:15px 25px;
-      border-radius:20px;
-      background:rgba(255,255,255,0.05);
-      border:1px solid rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
     }
 
-    .quest {
-      margin-top:60px;
-      text-align:center;
+    .brand-badge {
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      font-size: 14px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.3);
+      flex-shrink: 0;
+    }
+
+    .brand-text {
+      line-height: 1;
+    }
+
+    .brand-text strong {
+      display: block;
+      font-size: 14px;
+      letter-spacing: 0.18em;
+    }
+
+    .brand-text span {
+      display: block;
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 4px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: 14px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      transition: 0.25s ease;
+    }
+
+    .nav-links a:hover {
+      color: white;
+      background: rgba(255,255,255,0.06);
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
     }
 
     .btn {
-      padding:15px 30px;
-      border:none;
-      border-radius:20px;
-      background:#4c8dff;
-      color:#fff;
-      font-size:18px;
-      cursor:pointer;
-      margin-top:20px;
+      border: 0;
+      outline: none;
+      cursor: pointer;
+      font-family: inherit;
+      transition: 0.25s ease;
+      border-radius: 999px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      white-space: nowrap;
     }
 
-    .memory {
-      margin-top:60px;
+    .btn-sm {
+      height: 42px;
+      padding: 0 16px;
+      font-size: 14px;
     }
 
-    textarea {
-      width:100%;
-      height:100px;
-      border-radius:15px;
-      border:none;
-      padding:15px;
-      background:#111;
-      color:#fff;
+    .btn-lg {
+      height: 56px;
+      padding: 0 24px;
+      font-size: 15px;
     }
 
-    .memories {
-      margin-top:20px;
+    .btn-primary {
+      color: white;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      box-shadow: 0 12px 30px rgba(79,140,255,0.28);
     }
 
-    .card {
-      background:#111;
-      padding:15px;
-      border-radius:15px;
-      margin-bottom:10px;
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 40px rgba(79,140,255,0.34);
     }
 
+    .btn-dark {
+      color: white;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--line);
+    }
+
+    .btn-dark:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.1);
+    }
+
+    .hero {
+      padding: 54px 0 26px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .hero-main,
+    .hero-side {
+      border-radius: 34px;
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+      min-height: 620px;
+    }
+
+    .hero-main::before {
+      content: "";
+      position: absolute;
+      inset: auto -15% -35% auto;
+      width: 520px;
+      height: 520px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(79,140,255,0.22), transparent 62%);
+      filter: blur(24px);
+      pointer-events: none;
+    }
+
+    .hero-main::after {
+      content: "";
+      position: absolute;
+      inset: -25% auto auto -10%;
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(139,92,246,0.16), transparent 60%);
+      filter: blur(28px);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.05);
+      color: #dce6ff;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--green), var(--cyan));
+      box-shadow: 0 0 18px rgba(45,227,142,0.7);
+    }
+
+    .hero h1 {
+      font-size: clamp(48px, 7vw, 106px);
+      line-height: 0.94;
+      letter-spacing: -0.05em;
+      max-width: 860px;
+      margin-top: 20px;
+      font-weight: 900;
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, #ffffff 0%, #cddcff 24%, #85f0ff 52%, #94a6ff 74%, #ffffff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p.lead {
+      margin-top: 20px;
+      max-width: 700px;
+      font-size: 18px;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .stat {
+      border-radius: 22px;
+      padding: 18px;
+      background: rgba(255,255,255,0.045);
+      border: 1px solid var(--line);
+      min-height: 124px;
+    }
+
+    .stat small {
+      color: var(--muted);
+      display: block;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 28px;
+      margin-top: 12px;
+      letter-spacing: -0.04em;
+    }
+
+    .stat span {
+      display: block;
+      margin-top: 10px;
+      color: #dce5ff;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .hero-side {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .live-card {
+      position: relative;
+      border-radius: 28px;
+      padding: 22px;
+      background:
+        radial-gradient(circle at top right, rgba(79,140,255,0.18), transparent 36%),
+        linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
+      border: 1px solid var(--line);
+      min-height: 220px;
+      overflow: hidden;
+    }
+
+    .live-card h3 {
+      font-size: 15px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #dfe8ff;
+    }
+
+    .signal-list {
+      margin-top: 18px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .signal {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .signal strong {
+      font-size: 14px;
+    }
+
+    .signal span {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .pill {
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .pill.green {
+      color: #08140d;
+      background: linear-gradient(135deg, #49ffb3, #75ffd1);
+    }
+
+    .pill.blue {
+      color: #061221;
+      background: linear-gradient(135deg, #6cc7ff, #8df3ff);
+    }
+
+    .pill.orange {
+      color: #201106;
+      background: linear-gradient(135deg, #ffbf5e, #ffd98a);
+    }
+
+    .hero-mini-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      flex: 1;
+    }
+
+    .mini-card {
+      border-radius: 24px;
+      padding: 20px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--line);
+      min-height: 180px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .mini-card h4 {
+      font-size: 13px;
+      color: #dce6ff;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    .mini-card strong {
+      display: block;
+      font-size: 26px;
+      line-height: 1.05;
+      margin-top: 16px;
+      letter-spacing: -0.04em;
+    }
+
+    .mini-card p {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .section {
+      padding: 28px 0;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .section-head h2 {
+      font-size: clamp(30px, 4vw, 56px);
+      line-height: 0.95;
+      letter-spacing: -0.05em;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      max-width: 560px;
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    .brand-showcase {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .brand-card {
+      border-radius: 28px;
+      padding: 22px;
+      min-height: 250px;
+      position: relative;
+      overflow: hidden;
+      transition: 0.28s ease;
+    }
+
+    .brand-card:hover {
+      transform: translateY(-6px);
+    }
+
+    .brand-card.meta {
+      background:
+        radial-gradient(circle at top right, rgba(79,140,255,0.22), transparent 40%),
+        linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0.05));
+      border: 1px solid rgba(118,163,255,0.22);
+    }
+
+    .brand-card.google {
+      background:
+        radial-gradient(circle at 20% 20%, rgba(66,133,244,0.16), transparent 25%),
+        radial-gradient(circle at 75% 22%, rgba(234,67,53,0.16), transparent 20%),
+        radial-gradient(circle at 28% 75%, rgba(52,168,83,0.16), transparent 20%),
+        radial-gradient(circle at 86% 78%, rgba(251,188,5,0.18), transparent 20%),
+        linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0.05));
+      border: 1px solid rgba(255,255,255,0.11);
+    }
+
+    .brand-card.redbull {
+      background:
+        radial-gradient(circle at top center, rgba(59,130,246,0.18), transparent 28%),
+        radial-gradient(circle at bottom center, rgba(255,77,109,0.16), transparent 32%),
+        linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0.05));
+      border: 1px solid rgba(255,255,255,0.11);
+    }
+
+    .brand-card.future {
+      background:
+        radial-gradient(circle at 10% 10%, rgba(34,211,238,0.18), transparent 28%),
+        radial-gradient(circle at 90% 90%, rgba(139,92,246,0.18), transparent 32%),
+        linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0.05));
+      border: 1px solid rgba(255,255,255,0.11);
+    }
+
+    .brand-tag {
+      display: inline-flex;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-weight: 800;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .brand-card h3 {
+      margin-top: 18px;
+      font-size: 24px;
+      letter-spacing: -0.04em;
+    }
+
+    .brand-card p {
+      margin-top: 12px;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 14px;
+      max-width: 280px;
+    }
+
+    .brand-footer {
+      margin-top: 18px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .chip {
+      padding: 9px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      color: #dbe4ff;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.09);
+    }
+
+    .experience-grid {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 18px;
+    }
+
+    .panel {
+      border-radius: 30px;
+      padding: 24px;
+    }
+
+    .panel h3 {
+      font-size: 26px;
+      letter-spacing: -0.04em;
+    }
+
+    .panel p.sub {
+      margin-top: 10px;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    .quest-box {
+      margin-top: 20px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .quest-stage {
+      border-radius: 22px;
+      padding: 18px;
+      background: rgba(255,255,255,0.045);
+      border: 1px solid var(--line);
+    }
+
+    .quest-stage small {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .quest-stage strong {
+      display: block;
+      font-size: 19px;
+      line-height: 1.35;
+    }
+
+    .quest-result {
+      margin-top: 16px;
+      border-radius: 22px;
+      padding: 18px;
+      background: linear-gradient(135deg, rgba(79,140,255,0.16), rgba(139,92,246,0.14));
+      border: 1px solid rgba(140,160,255,0.18);
+      min-height: 96px;
+      display: flex;
+      align-items: center;
+      font-size: 16px;
+      line-height: 1.7;
+      color: #eef3ff;
+    }
+
+    .memory-tools {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .input,
+    .textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.045);
+      color: white;
+      outline: none;
+      font: inherit;
+      border-radius: 18px;
+      transition: 0.25s ease;
+    }
+
+    .input {
+      height: 54px;
+      padding: 0 16px;
+    }
+
+    .textarea {
+      resize: vertical;
+      min-height: 150px;
+      padding: 16px;
+    }
+
+    .input:focus,
+    .textarea:focus {
+      border-color: rgba(118,163,255,0.55);
+      box-shadow: 0 0 0 4px rgba(79,140,255,0.12);
+    }
+
+    .memory-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .memories-wrap {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+      max-height: 520px;
+      overflow: auto;
+      padding-right: 4px;
+    }
+
+    .memory-card {
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--line);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .memory-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 4px;
+      background: linear-gradient(180deg, var(--blue), var(--purple), var(--cyan));
+      opacity: 0.95;
+    }
+
+    .memory-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+      padding-left: 10px;
+    }
+
+    .memory-name {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #dce6ff;
+    }
+
+    .memory-time {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .memory-text {
+      padding-left: 10px;
+      color: #eef2ff;
+      line-height: 1.7;
+      font-size: 15px;
+      word-break: break-word;
+    }
+
+    .idea-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .idea-card {
+      border-radius: 28px;
+      padding: 22px;
+      min-height: 240px;
+      transition: 0.25s ease;
+    }
+
+    .idea-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .idea-card h4 {
+      font-size: 18px;
+      margin-top: 16px;
+      letter-spacing: -0.03em;
+    }
+
+    .idea-card p {
+      margin-top: 12px;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    .icon-box {
+      width: 54px;
+      height: 54px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      font-size: 24px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .timeline {
+      display: grid;
+      gap: 14px;
+    }
+
+    .timeline-step {
+      display: grid;
+      grid-template-columns: 62px 1fr;
+      gap: 14px;
+      align-items: start;
+      border-radius: 22px;
+      padding: 18px;
+      background: rgba(255,255,255,0.045);
+      border: 1px solid var(--line);
+    }
+
+    .timeline-num {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.25);
+    }
+
+    .timeline-step strong {
+      display: block;
+      font-size: 18px;
+      letter-spacing: -0.03em;
+    }
+
+    .timeline-step p {
+      margin-top: 8px;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    .cta {
+      padding: 20px 0 70px;
+    }
+
+    .cta-box {
+      border-radius: 34px;
+      padding: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-box::before {
+      content: "";
+      position: absolute;
+      inset: auto auto -30% -10%;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(79,140,255,0.18), transparent 62%);
+      filter: blur(24px);
+      pointer-events: none;
+    }
+
+    .cta-box::after {
+      content: "";
+      position: absolute;
+      inset: -30% -8% auto auto;
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(139,92,246,0.16), transparent 62%);
+      filter: blur(24px);
+      pointer-events: none;
+    }
+
+    .cta-grid {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .cta-box h2 {
+      font-size: clamp(34px, 5vw, 72px);
+      line-height: 0.94;
+      letter-spacing: -0.05em;
+      max-width: 760px;
+    }
+
+    .cta-box p {
+      margin-top: 18px;
+      max-width: 660px;
+      line-height: 1.8;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .cta-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+
+    .price-card {
+      border-radius: 26px;
+      padding: 24px;
+      background: rgba(255,255,255,0.055);
+      border: 1px solid var(--line);
+    }
+
+    .price-card small {
+      display: block;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 11px;
+    }
+
+    .price-card strong {
+      display: block;
+      margin-top: 12px;
+      font-size: 42px;
+      letter-spacing: -0.05em;
+    }
+
+    .price-card span {
+      display: block;
+      margin-top: 12px;
+      color: #dbe5ff;
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    .footer {
+      padding: 0 0 34px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .footer-box {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding: 18px 0;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    ::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.12);
+      border-radius: 999px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    @media (max-width: 1120px) {
+      .hero-grid,
+      .experience-grid,
+      .cta-grid,
+      .brand-showcase,
+      .idea-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-main,
+      .hero-side {
+        min-height: auto;
+      }
+
+      .hero-mini-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 820px) {
+      .nav {
+        border-radius: 28px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .brand {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .hero {
+        padding-top: 34px;
+      }
+
+      .hero-main,
+      .hero-side,
+      .panel,
+      .cta-box {
+        padding: 20px;
+        border-radius: 26px;
+      }
+
+      .hero-stats,
+      .hero-mini-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head h2 {
+        font-size: 38px;
+      }
+
+      .cta-box h2 {
+        font-size: 40px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .container {
+        width: min(var(--max), calc(100% - 20px));
+      }
+
+      .nav-links {
+        width: 100%;
+      }
+
+      .nav-actions {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .hero h1 {
+        font-size: 44px;
+      }
+
+      .btn-lg {
+        width: 100%;
+      }
+
+      .memory-actions .btn,
+      .cta-actions .btn {
+        width: 100%;
+      }
+    }
   </style>
 </head>
 <body>
+  <div class="cursor-glow" id="cursorGlow"></div>
 
-  <div class="container">
+  <div class="container topbar">
+    <div class="nav glass">
+      <div class="brand">
+        <div class="brand-badge">CV</div>
+        <div class="brand-text">
+          <strong>COLLABVERSE</strong>
+          <span>Future Brand Experience</span>
+        </div>
+      </div>
 
-    <h1>COLLABVERSE</h1>
-    <p>The future of brand collaboration</p>
+      <div class="nav-links">
+        <a href="#brands">Brands</a>
+        <a href="#experience">Experience</a>
+        <a href="#ideas">Ideas</a>
+        <a href="#memory">Memory Wall</a>
+      </div>
 
-    <div class="brands">
-      <div class="brand">META</div>
-      <div class="brand">GOOGLE</div>
-      <div class="brand">REDBULL</div>
-      <div class="brand">TESLA</div>
-      <div class="brand">NIKE</div>
+      <div class="nav-actions">
+        <a class="btn btn-sm btn-dark" href="#memory">Drop Memory</a>
+        <a class="btn btn-sm btn-primary" href="#cta">Pitch This Concept</a>
+      </div>
     </div>
-
-    <div class="quest">
-      <h2>Interactive Quest</h2>
-      <p>Click and discover something new</p>
-      <button class="btn" onclick="startQuest()">Start Quest</button>
-      <p id="questResult"></p>
-    </div>
-
-    <div class="memory">
-      <h2>Drop Your Memory</h2>
-      <textarea id="memoryInput" placeholder="Write something..."></textarea>
-      <button class="btn" onclick="addMemory()">Submit</button>
-
-      <div class="memories" id="memories"></div>
-    </div>
-
   </div>
 
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-main glass reveal">
+          <div class="eyebrow">
+            <span class="eyebrow-dot"></span>
+            Brand-inspired immersive concept
+          </div>
+
+          <h1>
+            <span class="gradient-text">A site that feels like</span><br>
+            the future of global brand collaboration.
+          </h1>
+
+          <p class="lead">
+            COLLABVERSE is a premium digital concept where tech energy, creative storytelling,
+            community interaction, and brand-style momentum meet in one powerful experience.
+            Visitors can complete a challenge, leave memories, submit ideas, and explore a platform
+            that feels ready for acquisition, partnership, or a viral launch.
+          </p>
+
+          <div class="hero-cta">
+            <a href="#experience" class="btn btn-lg btn-primary">Enter the Experience</a>
+            <button class="btn btn-lg btn-dark" id="randomVisionBtn">Generate Brand Vision</button>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat">
+              <small>Concept value</small>
+              <strong>Premium</strong>
+              <span>Built to look like a high-ticket pitch, not a simple landing page.</span>
+            </div>
+            <div class="stat">
+              <small>User action</small>
+              <strong>Interactive</strong>
+              <span>Visitors can complete a challenge and leave a digital trace on the site.</span>
+            </div>
+            <div class="stat">
+              <small>Acquisition feel</small>
+              <strong>Investor-ready</strong>
+              <span>Designed to feel like something a major company might want to license or buy.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-side glass reveal">
+          <div class="live-card">
+            <h3>Live concept signals</h3>
+
+            <div class="signal-list">
+              <div class="signal">
+                <div>
+                  <strong>Immersive storytelling</strong>
+                  <span>High emotional attention</span>
+                </div>
+                <div class="pill green">Active</div>
+              </div>
+
+              <div class="signal">
+                <div>
+                  <strong>User memory drops</strong>
+                  <span>Community-generated depth</span>
+                </div>
+                <div class="pill blue">Enabled</div>
+              </div>
+
+              <div class="signal">
+                <div>
+                  <strong>Brand-collab aesthetic</strong>
+                  <span>Acquisition-friendly visual system</span>
+                </div>
+                <div class="pill orange">Premium</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-mini-grid">
+            <div class="mini-card">
+              <h4>Quest engine</h4>
+              <strong>3-step emotional challenge</strong>
+              <p>A short interactive path that makes the user feel part of something bigger.</p>
+            </div>
+
+            <div class="mini-card">
+              <h4>Memory wall</h4>
+              <strong>Permanent digital traces</strong>
+              <p>People leave thoughts, moments, ideas, wins, or messages directly on the site.</p>
+            </div>
+
+            <div class="mini-card">
+              <h4>Pitch mode</h4>
+              <strong>Feels buyable</strong>
+              <p>The layout, language, and motion all push the concept toward perceived value.</p>
+            </div>
+
+            <div class="mini-card">
+              <h4>Brand energy</h4>
+              <strong>Bold, clean, cinematic</strong>
+              <p>Inspired by world-class tech, creative, and lifestyle company aesthetics.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="brands">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>Brand-inspired<br>experience language</h2>
+          <p>
+            This concept does not depend on one identity. It combines the clarity of major tech platforms,
+            the motion of modern consumer brands, and the adrenaline of lifestyle storytelling into one visual product.
+          </p>
+        </div>
+
+        <div class="brand-showcase">
+          <div class="brand-card meta reveal">
+            <div class="brand-tag">Tech presence</div>
+            <h3>Spatial interface energy</h3>
+            <p>Soft gradients, clean systems, futuristic calm, immersive feeling, and product-level polish.</p>
+            <div class="brand-footer">
+              <span class="chip">Glass UI</span>
+              <span class="chip">Depth</span>
+              <span class="chip">Vision</span>
+            </div>
+          </div>
+
+          <div class="brand-card google reveal">
+            <div class="brand-tag">Accessible intelligence</div>
+            <h3>Simple, universal, smart</h3>
+            <p>Clear interaction, easy action flow, and an interface that feels powerful without feeling heavy.</p>
+            <div class="brand-footer">
+              <span class="chip">Clean UX</span>
+              <span class="chip">Utility</span>
+              <span class="chip">Scale</span>
+            </div>
+          </div>
+
+          <div class="brand-card redbull reveal">
+            <div class="brand-tag">Adrenaline storytelling</div>
+            <h3>Momentum and identity</h3>
+            <p>Fast emotional punch, bold attitude, and content-ready energy that works for campaigns and launches.</p>
+            <div class="brand-footer">
+              <span class="chip">Action</span>
+              <span class="chip">Lifestyle</span>
+              <span class="chip">Viral feel</span>
+            </div>
+          </div>
+
+          <div class="brand-card future reveal">
+            <div class="brand-tag">Acquisition angle</div>
+            <h3>Product that feels valuable</h3>
+            <p>Structured to look like a concept platform, brand lab, or digital property that deserves attention.</p>
+            <div class="brand-footer">
+              <span class="chip">Pitch-ready</span>
+              <span class="chip">Scalable</span>
+              <span class="chip">Modern IP</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="experience">
+      <div class="container experience-grid">
+        <div class="panel glass reveal">
+          <h3>Interactive brand quest</h3>
+          <p class="sub">
+            Make the visitor do something. Not just scroll. This creates memory, participation,
+            and a reason to share the page.
+          </p>
+
+          <div class="quest-box">
+            <div class="quest-stage">
+              <small>Step 1</small>
+              <strong>Enter with one word that describes the future.</strong>
+            </div>
+
+            <input class="input" id="futureWord" placeholder="Example: velocity, vision, freedom, pulse" />
+
+            <div class="quest-stage">
+              <small>Step 2</small>
+              <strong>Choose the energy you want this platform to have.</strong>
+            </div>
+
+            <div class="memory-actions">
+              <button class="btn btn-sm btn-dark energy-btn" data-energy="Bold">Bold</button>
+              <button class="btn btn-sm btn-dark energy-btn" data-energy="Intelligent">Intelligent</button>
+              <button class="btn btn-sm btn-dark energy-btn" data-energy="Viral">Viral</button>
+              <button class="btn btn-sm btn-dark energy-btn" data-energy="Luxury">Luxury</button>
+            </div>
+
+            <div class="quest-stage">
+              <small>Step 3</small>
+              <strong>Generate your brand result.</strong>
+            </div>
+
+            <button class="btn btn-lg btn-primary" id="runQuest">Run the Experience</button>
+
+            <div class="quest-result" id="questResult">
+              Your result will appear here.
+            </div>
+          </div>
+        </div>
+
+        <div class="panel glass reveal" id="memory">
+          <h3>Memory wall</h3>
+          <p class="sub">
+            Give the site a living layer. Visitors can leave memories, thoughts, ideas, wins,
+            moments, or messages. Saved locally in the browser.
+          </p>
+
+          <div class="memory-tools">
+            <input class="input" id="memoryName" placeholder="Your name or alias" />
+            <textarea class="textarea" id="memoryText" placeholder="Drop a memory, a thought, a dream, a message, a lesson, or a wild idea..."></textarea>
+
+            <div class="memory-actions">
+              <button class="btn btn-lg btn-primary" id="saveMemory">Save Memory</button>
+              <button class="btn btn-lg btn-dark" id="clearMemories">Clear All</button>
+            </div>
+          </div>
+
+          <div class="memories-wrap" id="memoriesWrap"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="ideas">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>What companies<br>could do with this</h2>
+          <p>
+            This is not just a pretty page. It can become a campaign object, activation platform,
+            idea vault, experience microsite, event page, memory archive, or branded community portal.
+          </p>
+        </div>
+
+        <div class="idea-grid">
+          <div class="idea-card glass reveal">
+            <div class="icon-box">✦</div>
+            <h4>Campaign launch object</h4>
+            <p>Brands could use it for new product drops, collab announcements, or limited storytelling activations.</p>
+          </div>
+
+          <div class="idea-card glass reveal">
+            <div class="icon-box">⚡</div>
+            <h4>Community memory archive</h4>
+            <p>Fans or customers leave their moments, reactions, wins, and stories tied to a brand experience.</p>
+          </div>
+
+          <div class="idea-card glass reveal">
+            <div class="icon-box">◉</div>
+            <h4>Creative challenge platform</h4>
+            <p>Users complete prompts, unlock messages, or get dynamic outcomes based on brand-defined paths.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>Simple concept path</h2>
+          <p>
+            If you pitch this right, the site feels less like a webpage and more like a digital property with identity.
+          </p>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-step glass reveal">
+            <div class="timeline-num">1</div>
+            <div>
+              <strong>Open with premium visual language</strong>
+              <p>People instantly feel that the project has value, direction, and strong brand potential.</p>
+            </div>
+          </div>
+
+          <div class="timeline-step glass reveal">
+            <div class="timeline-num">2</div>
+            <div>
+              <strong>Give them something to do</strong>
+              <p>Quest, idea drop, memory wall, emotional prompt, challenge, unlock, or interactive action.</p>
+            </div>
+          </div>
+
+          <div class="timeline-step glass reveal">
+            <div class="timeline-num">3</div>
+            <div>
+              <strong>Create collectable identity</strong>
+              <p>The more the site stores traces of visitors, the more alive and valuable it feels as a concept product.</p>
+            </div>
+          </div>
+
+          <div class="timeline-step glass reveal">
+            <div class="timeline-num">4</div>
+            <div>
+              <strong>Pitch the platform, not just design</strong>
+              <p>You are not selling HTML. You are selling a branded experience framework that can be licensed, acquired, or customized.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta" id="cta">
+      <div class="container">
+        <div class="cta-box glass reveal">
+          <div class="cta-grid">
+            <div>
+              <div class="eyebrow">
+                <span class="eyebrow-dot"></span>
+                Built to feel premium
+              </div>
+
+              <h2>Make it feel like something a company would want to own.</h2>
+              <p>
+                A strong concept sells better when it already looks expensive, interactive, brand-aware,
+                and emotionally memorable. This page is built to create that feeling.
+              </p>
+
+              <div class="cta-actions">
+                <button class="btn btn-lg btn-primary" id="copyPitch">Copy pitch text</button>
+                <a href="#brands" class="btn btn-lg btn-dark">Review concept blocks</a>
+              </div>
+            </div>
+
+            <div class="price-card">
+              <small>Concept positioning</small>
+              <strong>Brand Lab</strong>
+              <span>
+                Position this as a premium interactive campaign framework for launches,
+                collabs, memory experiences, digital collectibles, community activations,
+                and creative brand storytelling.
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container footer">
+      <div class="footer-box">
+        <div>COLLABVERSE © 2026</div>
+        <div>Concept site • English version • Premium one-file build</div>
+      </div>
+    </div>
+  </main>
+
   <script>
-    function startQuest() {
-      const texts = [
-        "You unlocked creativity",
-        "You found a hidden idea",
-        "You are part of the future",
-        "You discovered a secret",
-        "You are now inside the system"
-      ];
-      document.getElementById("questResult").innerText =
-        texts[Math.floor(Math.random() * texts.length)];
+    const cursorGlow = document.getElementById("cursorGlow");
+    window.addEventListener("mousemove", (e) => {
+      cursorGlow.style.transform = `translate(${e.clientX - 210}px, ${e.clientY - 210}px)`;
+    });
+
+    const revealItems = document.querySelectorAll(".reveal");
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add("show");
+      });
+    }, { threshold: 0.12 });
+
+    revealItems.forEach(item => revealObserver.observe(item));
+
+    const energyButtons = document.querySelectorAll(".energy-btn");
+    let selectedEnergy = "Bold";
+
+    energyButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        energyButtons.forEach(b => {
+          b.classList.remove("btn-primary");
+          b.classList.add("btn-dark");
+        });
+        btn.classList.remove("btn-dark");
+        btn.classList.add("btn-primary");
+        selectedEnergy = btn.dataset.energy;
+      });
+    });
+
+    energyButtons[0].classList.remove("btn-dark");
+    energyButtons[0].classList.add("btn-primary");
+
+    const questResult = document.getElementById("questResult");
+    const futureWord = document.getElementById("futureWord");
+    const runQuest = document.getElementById("runQuest");
+    const randomVisionBtn = document.getElementById("randomVisionBtn");
+
+    const questTemplates = [
+      (word, energy) => `Result: This platform should move with ${energy.toLowerCase()} energy and be known for "${word}". It feels like a premium collab object built for attention, participation, and brand desire.`,
+      (word, energy) => `Result: "${word}" becomes the emotional core. With ${energy.toLowerCase()} direction, the site reads like a digital property that could anchor a major campaign or community activation.`,
+      (word, energy) => `Result: The concept projects ${energy.toLowerCase()} momentum. "${word}" becomes the signal that makes the experience feel memorable, scalable, and ready for brand partnership.`,
+      (word, energy) => `Result: The platform should own the word "${word}" and turn it into a ${energy.toLowerCase()} branded ritual people want to repeat and share.`
+    ];
+
+    runQuest.addEventListener("click", () => {
+      const word = futureWord.value.trim() || "future";
+      const result = questTemplates[Math.floor(Math.random() * questTemplates.length)](word, selectedEnergy);
+      questResult.textContent = result;
+    });
+
+    const randomVisions = [
+      "Make it feel like a secret campaign prototype from the future.",
+      "Position it as an emotional archive for digital culture.",
+      "Turn it into a branded challenge engine with unlockable outcomes.",
+      "Frame it as a community-powered collab platform.",
+      "Sell it as a premium microsite product for big launches."
+    ];
+
+    randomVisionBtn.addEventListener("click", () => {
+      questResult.textContent = randomVisions[Math.floor(Math.random() * randomVisions.length)];
+      document.getElementById("experience").scrollIntoView({ behavior: "smooth" });
+    });
+
+    const memoryName = document.getElementById("memoryName");
+    const memoryText = document.getElementById("memoryText");
+    const saveMemory = document.getElementById("saveMemory");
+    const clearMemories = document.getElementById("clearMemories");
+    const memoriesWrap = document.getElementById("memoriesWrap");
+
+    function getMemories() {
+      try {
+        return JSON.parse(localStorage.getItem("collabverse_memories")) || [];
+      } catch {
+        return [];
+      }
     }
 
-    function addMemory() {
-      const input = document.getElementById("memoryInput");
-      if(!input.value) return;
-
-      const div = document.createElement("div");
-      div.className = "card";
-      div.innerText = input.value;
-
-      document.getElementById("memories").prepend(div);
-      input.value = "";
+    function setMemories(memories) {
+      localStorage.setItem("collabverse_memories", JSON.stringify(memories));
     }
+
+    function formatTime(dateString) {
+      const d = new Date(dateString);
+      return d.toLocaleString();
+    }
+
+    function renderMemories() {
+      const memories = getMemories();
+      memoriesWrap.innerHTML = "";
+
+      if (!memories.length) {
+        memoriesWrap.innerHTML = `
+          <div class="memory-card">
+            <div class="memory-top">
+              <div class="memory-name">No memories yet</div>
+              <div class="memory-time">Waiting</div>
+            </div>
+            <div class="memory-text">Be the first to drop a thought, message, dream, or memory.</div>
+          </div>
+        `;
+        return;
+      }
+
+      memories.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "memory-card";
+        card.innerHTML = `
+          <div class="memory-top">
+            <div class="memory-name">${escapeHtml(item.name)}</div>
+            <div class="memory-time">${formatTime(item.time)}</div>
+          </div>
+          <div class="memory-text">${escapeHtml(item.text)}</div>
+        `;
+        memoriesWrap.appendChild(card);
+      });
+    }
+
+    function escapeHtml(str) {
+      return str
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    saveMemory.addEventListener("click", () => {
+      const name = memoryName.value.trim() || "Anonymous";
+      const text = memoryText.value.trim();
+
+      if (!text) {
+        memoryText.focus();
+        return;
+      }
+
+      const memories = getMemories();
+      memories.unshift({
+        name,
+        text,
+        time: new Date().toISOString()
+      });
+
+      setMemories(memories);
+      memoryText.value = "";
+      renderMemories();
+    });
+
+    clearMemories.addEventListener("click", () => {
+      localStorage.removeItem("collabverse_memories");
+      renderMemories();
+    });
+
+    renderMemories();
+
+    const copyPitch = document.getElementById("copyPitch");
+    copyPitch.addEventListener("click", async () => {
+      const pitchText = `COLLABVERSE is a premium interactive brand-experience concept designed to feel like a high-value digital property. It combines immersive design, community participation, memory drops, and interactive storytelling into one scalable platform that could be adapted for campaigns, launches, collabs, and branded activations.`;
+
+      try {
+        await navigator.clipboard.writeText(pitchText);
+        copyPitch.textContent = "Pitch copied";
+        setTimeout(() => {
+          copyPitch.textContent = "Copy pitch text";
+        }, 1800);
+      } catch {
+        copyPitch.textContent = "Copy failed";
+        setTimeout(() => {
+          copyPitch.textContent = "Copy pitch text";
+        }, 1800);
+      }
+    });
   </script>
-
 </body>
 </html>
