@@ -265,10 +265,6 @@
       overflow:auto;
       max-height:560px;
     }
-    .line.dim{ color:#7da18f; }
-    .line.warn{ color:var(--yellow); }
-    .line.ok{ color:var(--green); }
-    .line.err{ color:#ff8ca3; }
 
     .side{
       display:flex;
@@ -297,6 +293,7 @@
       background:rgba(255,255,255,.02);
       color:#d2ffea;
       font-size:13px;
+      word-break: break-word;
     }
     .subscribe-box{
       border:1px solid rgba(255,209,102,.2);
@@ -317,6 +314,26 @@
       color:var(--muted);
       font-size:13px;
       line-height:1.7;
+    }
+    .pay-box{
+      margin-top:14px;
+      padding:12px;
+      border:1px solid rgba(0,255,153,.14);
+      border-radius:14px;
+      background:rgba(255,255,255,.02);
+    }
+    .pay-label{
+      color:#9cccb1;
+      font-size:11px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      margin-bottom:8px;
+    }
+    .pay-address{
+      font-size:12px;
+      line-height:1.7;
+      color:#e7fff2;
+      word-break:break-all;
     }
     .footer{
       margin-top:18px;
@@ -356,7 +373,7 @@
           and simple subscription flow. Use it as a demo, landing page, or product front-end.
         </p>
         <div class="cta-row">
-          <a class="btn btn-primary" href="#subscribe">Subscribe — $222</a>
+          <a class="btn btn-primary" href="#subscribe">Subscribe — $444</a>
           <a class="btn btn-ghost" href="#terminal">View Live Terminal</a>
           <div class="price-badge">Discount Active</div>
         </div>
@@ -386,7 +403,7 @@
           <div class="label">System Note</div>
           <div class="small">
             This page shows a simulated live processing terminal for visual/demo use.
-            You can later connect it to your own lawful backend, logger, parser, or analytics tool.
+            Stats continue after refresh on the same device via local storage.
           </div>
         </div>
       </div>
@@ -410,19 +427,27 @@
           <div class="list">
             <div class="list-item">Live terminal animation</div>
             <div class="list-item">Premium hacker design</div>
-            <div class="list-item">Subscription block</div>
+            <div class="list-item">BTC payment block</div>
+            <div class="list-item">Persistent stats</div>
             <div class="list-item">Responsive layout</div>
-            <div class="list-item">Easy to edit</div>
           </div>
         </div>
 
         <div class="side-card card subscribe-box" id="subscribe">
           <div class="side-title">Subscription</div>
-          <div class="price">$222 <span>/ month</span></div>
+          <div class="price">$444 <span>/ month</span></div>
           <div class="small" style="margin-bottom:14px;">
-            Limited discount. Simple premium access button for your landing page.
+            Limited premium access. Pay with BTC to the address below.
           </div>
-          <a class="btn btn-primary" href="#" onclick="fakeSubscribe(event)">Subscribe Now</a>
+
+          <div class="pay-box">
+            <div class="pay-label">BTC Payment Address</div>
+            <div class="pay-address" id="btcAddress">bc1qmyugenp8xx0wk68tjuxzv0peky88w4wazwz2ph</div>
+          </div>
+
+          <div class="cta-row" style="margin-top:14px;">
+            <a class="btn btn-primary" href="#" onclick="copyBtcAddress(event)">Copy BTC Address</a>
+          </div>
         </div>
 
         <div class="side-card card">
@@ -446,13 +471,44 @@
   const streamCount = document.getElementById("streamCount");
   const clock = document.getElementById("clock");
 
-  let totalLogs = 23872;
-  let fakeStreams = 12;
-  let checkedCount = 1482741;
-  let foundCount = 7;
+  const STORAGE_KEY = "darkcore_terminal_stats_v2";
+  const BTC_ADDRESS = "bc1qmyugenp8xx0wk68tjuxzv0peky88w4wazwz2ph";
 
-  const usedAddresses = new Set();
-  const usedPrivKeys = new Set();
+  const defaultState = {
+    totalLogs: 23872,
+    fakeStreams: 12,
+    checkedCount: 1482741,
+    sessions: 97
+  };
+
+  let state = loadState();
+
+  function loadState() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return { ...defaultState };
+      return { ...defaultState, ...JSON.parse(raw) };
+    } catch {
+      return { ...defaultState };
+    }
+  }
+
+  function saveState() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }
+
+  function formatLogs(num) {
+    return String(num).padStart(6, "0");
+  }
+
+  function formatStreams(num) {
+    return String(num).padStart(3, "0");
+  }
+
+  function updateCounters() {
+    logCount.textContent = formatLogs(state.totalLogs);
+    streamCount.textContent = formatStreams(state.fakeStreams);
+  }
 
   function updateClock() {
     const now = new Date();
@@ -462,46 +518,8 @@
       second: "2-digit"
     });
   }
+  updateClock();
   setInterval(updateClock, 1000);
-
-  function randomHex(len) {
-    const chars = "abcdef0123456789";
-    let out = "";
-    for (let i = 0; i < len; i++) {
-      out += chars[Math.floor(Math.random() * chars.length)];
-    }
-    return out;
-  }
-
-  function randomBase58(len) {
-    const chars = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
-    let out = "";
-    for (let i = 0; i < len; i++) {
-      out += chars[Math.floor(Math.random() * chars.length)];
-    }
-    return out;
-  }
-
-  function generateUniquePrivKey() {
-    let key;
-    do { key = randomHex(64); } while (usedPrivKeys.has(key));
-    usedPrivKeys.add(key);
-    return key;
-  }
-
-  function generateUniqueAddress() {
-    let addr;
-    do {
-      const p = ["1","3","bc1q"][Math.floor(Math.random()*3)];
-      addr = p === "bc1q" ? p + randomBase58(38).toLowerCase() : p + randomBase58(33);
-    } while (usedAddresses.has(addr));
-    usedAddresses.add(addr);
-    return addr;
-  }
-
-  function randomBalance() {
-    return (Math.random()*0.4 + 0.0003).toFixed(6);
-  }
 
   function addLine(html) {
     const div = document.createElement("div");
@@ -509,8 +527,9 @@
     terminalBody.appendChild(div);
     terminalBody.scrollTop = terminalBody.scrollHeight;
 
-    totalLogs++;
-    logCount.textContent = String(totalLogs);
+    state.totalLogs++;
+    updateCounters();
+    saveState();
 
     const item = document.createElement("div");
     item.className = "list-item";
@@ -522,55 +541,49 @@
     }
   }
 
-  function normalBatch() {
-    checkedCount += Math.floor(Math.random()*10)+2;
-
-    const priv = generateUniquePrivKey();
-    const addr = generateUniqueAddress();
-
-    addLine(`<span style="color:#6fa88d">[scan]</span> checking wallet #${checkedCount}`);
-    addLine(`<span style="color:#7da18f">[key]</span> ${priv}`);
-    addLine(`<span style="color:#7da18f">[addr]</span> ${addr}`);
-    addLine(`<span style="color:#999">[btc]</span> 0.000000 BTC`);
-    addLine(`<span style="color:#00ff99">[ok]</span> scanned`);
-  }
-
-  function foundBatch() {
-    checkedCount += Math.floor(Math.random()*6)+1;
-    foundCount++;
-
-    const priv = generateUniquePrivKey();
-    const addr = generateUniqueAddress();
-    const bal = randomBalance();
-
-    addLine(`<span style="color:#ffcc00">[FOUND]</span> wallet match #${checkedCount}`);
-    addLine(`<span style="color:#00ff99">[key]</span> ${priv}`);
-    addLine(`<span style="color:#00ff99">[addr]</span> ${addr}`);
-    addLine(`<span style="color:#ff4444;font-weight:bold">[BTC]</span> <span style="color:#ff4444">${bal} BTC</span>`);
-    addLine(`<span style="color:#00ff99">[saved]</span> written to FOUND_WALLETS.txt`);
-
-    if (Math.random() < 0.6) {
-      addLine(`<span style="color:#ffcc00">[export]</span> exported to notebook`);
-    }
-  }
+  const demoActions = [
+    () => addLine(`<span style="color:#6fa88d">[init]</span> session restored from local storage`),
+    () => addLine(`<span style="color:#7da18f">[sync]</span> dashboard metrics verified`),
+    () => addLine(`<span style="color:#7da18f">[stream]</span> active feed heartbeat received`),
+    () => addLine(`<span style="color:#00ff99">[ok]</span> module response stable`),
+    () => addLine(`<span style="color:#6fa88d">[stats]</span> processed events: ${state.checkedCount}`),
+    () => addLine(`<span style="color:#ffd166">[note]</span> demo terminal mode enabled`),
+    () => addLine(`<span style="color:#00ff99">[cache]</span> counters persisted after refresh`),
+    () => addLine(`<span style="color:#7da18f">[secure]</span> access layer healthy`)
+  ];
 
   function simulate() {
-    if (Math.random() < 0.18) {
-      foundBatch();
-    } else {
-      normalBatch();
-    }
+    state.checkedCount += Math.floor(Math.random() * 10) + 2;
+    if (Math.random() > 0.35) state.fakeStreams += 1;
+    if (Math.random() > 0.82) state.sessions += 1;
 
-    fakeStreams += Math.random() > 0.4 ? 1 : 0;
-    streamCount.textContent = fakeStreams;
+    const action = demoActions[Math.floor(Math.random() * demoActions.length)];
+    action();
+
+    updateCounters();
+    saveState();
   }
 
-  setInterval(simulate, 1100);
+  function copyBtcAddress(event) {
+    event.preventDefault();
+    navigator.clipboard.writeText(BTC_ADDRESS).then(() => {
+      addLine(`<span style="color:#00ff99">[payment]</span> BTC address copied`);
+      alert("BTC address copied");
+    }).catch(() => {
+      alert(BTC_ADDRESS);
+    });
+  }
+
+  updateCounters();
 
   addLine(`<span style="color:#00ff99">[ok]</span> system online`);
-  addLine(`<span style="color:#6fa88d">[stats]</span> loaded logs: ${totalLogs}`);
-  addLine(`<span style="color:#6fa88d">[stats]</span> checked wallets: ${checkedCount}`);
-  addLine(`<span style="color:#6fa88d">[stats]</span> found: ${foundCount}`);
+  addLine(`<span style="color:#6fa88d">[stats]</span> loaded logs: ${state.totalLogs}`);
+  addLine(`<span style="color:#6fa88d">[stats]</span> processed events: ${state.checkedCount}`);
+  addLine(`<span style="color:#6fa88d">[stats]</span> active sessions: ${state.sessions}`);
+  addLine(`<span style="color:#ffd166">[billing]</span> subscription price updated to $444/month`);
+  addLine(`<span style="color:#00ff99">[payment]</span> BTC address ready: ${BTC_ADDRESS}`);
+
+  setInterval(simulate, 1100);
 </script>
 </body>
 </html>
