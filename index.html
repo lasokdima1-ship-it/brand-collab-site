@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DarkCore Terminal</title>
-  <meta name="description" content="Live terminal style dashboard with premium hacker design." />
+  <title>DarkCore Payment Terminal</title>
+  <meta name="description" content="Premium hacker style BTC payment page." />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
     :root{
       --bg:#05080d;
       --panel:#0b1118;
@@ -20,6 +21,7 @@
       --yellow:#ffd166;
       --shadow:0 0 30px rgba(0,255,153,.08);
     }
+
     body{
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
       background:
@@ -29,6 +31,7 @@
       min-height: 100vh;
       overflow-x: hidden;
     }
+
     .grid-bg::before{
       content:"";
       position:fixed;
@@ -41,6 +44,7 @@
       pointer-events:none;
       z-index:0;
     }
+
     .scan::after{
       content:"";
       position:fixed;
@@ -50,6 +54,7 @@
       pointer-events:none;
       z-index:1;
     }
+
     @keyframes scan {
       0%{ transform: translateY(-100%); }
       100%{ transform: translateY(100%); }
@@ -63,37 +68,48 @@
       padding:20px 0 40px;
     }
 
+    .card{
+      background:linear-gradient(180deg, rgba(10,17,24,.95), rgba(8,12,17,.92));
+      border:1px solid var(--line);
+      border-radius:24px;
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
     .topbar{
       display:flex;
       justify-content:space-between;
       align-items:center;
       gap:14px;
       padding:14px 18px;
-      border:1px solid var(--line);
       background:rgba(8,13,19,.7);
       backdrop-filter: blur(10px);
-      border-radius:18px;
-      box-shadow: var(--shadow);
       margin-bottom:20px;
     }
+
     .brand{
       display:flex;
       align-items:center;
       gap:12px;
       min-width:0;
     }
+
     .dot{
-      width:12px; height:12px; border-radius:50%;
+      width:12px;
+      height:12px;
+      border-radius:50%;
       background:var(--green);
       box-shadow:0 0 18px var(--green);
       flex:0 0 auto;
     }
+
     .brand h1{
       font-size:15px;
       letter-spacing:.18em;
       text-transform:uppercase;
       white-space:nowrap;
     }
+
     .status{
       color:var(--muted);
       font-size:12px;
@@ -102,17 +118,11 @@
 
     .hero{
       display:grid;
-      grid-template-columns:1.1fr .9fr;
+      grid-template-columns:1.05fr .95fr;
       gap:18px;
       margin-bottom:18px;
     }
-    .card{
-      background:linear-gradient(180deg, rgba(10,17,24,.95), rgba(8,12,17,.92));
-      border:1px solid var(--line);
-      border-radius:24px;
-      box-shadow: var(--shadow);
-      overflow:hidden;
-    }
+
     .hero-left{
       padding:28px;
       min-height:320px;
@@ -120,6 +130,7 @@
       flex-direction:column;
       justify-content:center;
     }
+
     .eyebrow{
       display:inline-flex;
       align-items:center;
@@ -133,14 +144,16 @@
       margin-bottom:18px;
       background:rgba(0,255,153,.05);
     }
+
     .hero h2{
-      font-size:clamp(30px, 6vw, 64px);
+      font-size:clamp(32px, 6vw, 66px);
       line-height:.95;
       letter-spacing:-.04em;
       margin-bottom:14px;
       text-transform:uppercase;
       text-shadow:0 0 18px rgba(0,255,153,.08);
     }
+
     .hero p{
       color:var(--muted);
       font-size:15px;
@@ -148,12 +161,14 @@
       max-width:700px;
       margin-bottom:22px;
     }
+
     .cta-row{
       display:flex;
       flex-wrap:wrap;
       gap:12px;
       align-items:center;
     }
+
     .btn{
       text-decoration:none;
       border:none;
@@ -168,18 +183,23 @@
       display:inline-flex;
       align-items:center;
       gap:10px;
+      font-family: inherit;
     }
+
     .btn-primary{
       background:linear-gradient(180deg, var(--green), var(--green2));
       color:#031109;
       box-shadow:0 10px 30px rgba(0,255,153,.18);
     }
+
     .btn-primary:hover{ transform:translateY(-2px); }
+
     .btn-ghost{
       color:#beffdb;
       background:transparent;
       border:1px solid rgba(0,255,153,.18);
     }
+
     .price-badge{
       background:rgba(255,209,102,.12);
       color:var(--yellow);
@@ -197,17 +217,20 @@
       flex-direction:column;
       gap:14px;
     }
+
     .mini-stats{
       display:grid;
       grid-template-columns:repeat(2,1fr);
       gap:12px;
     }
+
     .stat{
       background:rgba(255,255,255,.02);
       border:1px solid rgba(0,255,153,.12);
       border-radius:18px;
       padding:16px;
     }
+
     .stat .label{
       color:var(--muted);
       font-size:12px;
@@ -215,22 +238,25 @@
       letter-spacing:.08em;
       margin-bottom:8px;
     }
+
     .stat .value{
       font-size:26px;
       font-weight:800;
       color:#ebfff3;
     }
 
-    .terminal-wrap{
+    .layout{
       display:grid;
-      grid-template-columns:1fr 320px;
+      grid-template-columns:1fr 340px;
       gap:18px;
     }
+
     .terminal{
-      min-height:560px;
+      min-height:580px;
       display:flex;
       flex-direction:column;
     }
+
     .terminal-top{
       display:flex;
       align-items:center;
@@ -239,22 +265,30 @@
       border-bottom:1px solid var(--line);
       background:rgba(255,255,255,.01);
     }
+
     .terminal-dots{
-      display:flex; gap:8px;
+      display:flex;
+      gap:8px;
     }
+
     .terminal-dots span{
-      width:10px; height:10px; border-radius:50%;
+      width:10px;
+      height:10px;
+      border-radius:50%;
       display:block;
     }
+
     .terminal-dots span:nth-child(1){ background:#ff5f57; }
     .terminal-dots span:nth-child(2){ background:#febc2e; }
     .terminal-dots span:nth-child(3){ background:#28c840; }
+
     .terminal-title{
       color:#a7c7b5;
       font-size:12px;
       letter-spacing:.1em;
       text-transform:uppercase;
     }
+
     .terminal-body{
       padding:18px;
       flex:1;
@@ -263,7 +297,7 @@
       color:#bfffdc;
       white-space:pre-wrap;
       overflow:auto;
-      max-height:560px;
+      max-height:580px;
     }
 
     .side{
@@ -271,9 +305,11 @@
       flex-direction:column;
       gap:18px;
     }
+
     .side-card{
       padding:18px;
     }
+
     .side-title{
       font-size:12px;
       color:#9cccb1;
@@ -281,13 +317,15 @@
       text-transform:uppercase;
       margin-bottom:14px;
     }
+
     .list{
       display:flex;
       flex-direction:column;
       gap:10px;
     }
+
     .list-item{
-      padding:12px 12px;
+      padding:12px;
       border:1px solid rgba(0,255,153,.1);
       border-radius:14px;
       background:rgba(255,255,255,.02);
@@ -295,26 +333,31 @@
       font-size:13px;
       word-break: break-word;
     }
+
     .subscribe-box{
       border:1px solid rgba(255,209,102,.2);
       background:linear-gradient(180deg, rgba(255,209,102,.08), rgba(255,209,102,.03));
     }
+
     .price{
       font-size:42px;
       font-weight:900;
       line-height:1;
       margin:10px 0 8px;
     }
+
     .price span{
       font-size:16px;
       color:var(--muted);
       font-weight:600;
     }
+
     .small{
       color:var(--muted);
       font-size:13px;
       line-height:1.7;
     }
+
     .pay-box{
       margin-top:14px;
       padding:12px;
@@ -322,6 +365,7 @@
       border-radius:14px;
       background:rgba(255,255,255,.02);
     }
+
     .pay-label{
       color:#9cccb1;
       font-size:11px;
@@ -329,12 +373,34 @@
       text-transform:uppercase;
       margin-bottom:8px;
     }
+
     .pay-address{
       font-size:12px;
-      line-height:1.7;
+      line-height:1.75;
       color:#e7fff2;
-      word-break:break-all;
+      word-break: break-all;
     }
+
+    .qr-wrap{
+      margin-top:14px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:14px;
+      border:1px solid rgba(0,255,153,.14);
+      border-radius:18px;
+      background:rgba(255,255,255,.02);
+    }
+
+    .qr-wrap img{
+      width:200px;
+      height:200px;
+      max-width:100%;
+      border-radius:12px;
+      background:#fff;
+      padding:8px;
+    }
+
     .footer{
       margin-top:18px;
       padding:18px 0 10px;
@@ -344,7 +410,7 @@
     }
 
     @media (max-width: 960px){
-      .hero, .terminal-wrap{
+      .hero, .layout{
         grid-template-columns:1fr;
       }
       .hero-left{ min-height:auto; }
@@ -356,7 +422,7 @@
     <div class="topbar card">
       <div class="brand">
         <span class="dot"></span>
-        <h1>DarkCore Terminal</h1>
+        <h1>DarkCore Payment Terminal</h1>
       </div>
       <div class="status" id="clock">LIVE</div>
     </div>
@@ -365,16 +431,16 @@
       <div class="hero-left card">
         <div class="eyebrow">
           <span>●</span>
-          <span>Live Terminal Experience</span>
+          <span>Premium Access Active</span>
         </div>
-        <h2>Hacker Style<br>Dashboard</h2>
+        <h2>Bitcoin<br>Subscription</h2>
         <p>
-          Premium dark interface with live terminal animation, clean stats, discount badge,
-          and simple subscription flow. Use it as a demo, landing page, or product front-end.
+          Premium dark payment page with hacker style design, copy button, live terminal,
+          QR code and persistent stats that keep growing even after refresh.
         </p>
         <div class="cta-row">
           <a class="btn btn-primary" href="#subscribe">Subscribe — $444</a>
-          <a class="btn btn-ghost" href="#terminal">View Live Terminal</a>
+          <a class="btn btn-ghost" href="#terminal">View Payment Feed</a>
           <div class="price-badge">Discount Active</div>
         </div>
       </div>
@@ -386,99 +452,111 @@
             <div class="value">Online</div>
           </div>
           <div class="stat">
-            <div class="label">Mode</div>
-            <div class="value">Secure</div>
+            <div class="label">Method</div>
+            <div class="value">BTC</div>
           </div>
           <div class="stat">
-            <div class="label">Streams</div>
-            <div class="value" id="streamCount">088</div>
+            <div class="label">Sessions</div>
+            <div class="value" id="sessionCount">128</div>
           </div>
           <div class="stat">
             <div class="label">Logs</div>
-            <div class="value" id="logCount">005834</div>
+            <div class="value" id="logCount">008420</div>
           </div>
         </div>
 
         <div class="stat" style="height:100%;">
           <div class="label">System Note</div>
           <div class="small">
-            This page shows a simulated live processing terminal for visual/demo use.
-            Stats continue after refresh on the same device via local storage.
+            This is a payment landing page. The counters are stored in local storage, so the
+            visible stats continue after page refresh on the same device.
           </div>
         </div>
       </div>
     </section>
 
-    <section class="terminal-wrap" id="terminal">
-      <div class="terminal card">
+    <section class="layout">
+      <div class="terminal card" id="terminal">
         <div class="terminal-top">
           <div class="terminal-dots">
             <span></span><span></span><span></span>
           </div>
-          <div class="terminal-title">live-terminal-feed</div>
+          <div class="terminal-title">payment-feed</div>
           <div class="terminal-title">status: active</div>
         </div>
         <div class="terminal-body" id="terminalBody"></div>
       </div>
 
       <div class="side">
-        <div class="side-card card">
-          <div class="side-title">Features</div>
-          <div class="list">
-            <div class="list-item">Live terminal animation</div>
-            <div class="list-item">Premium hacker design</div>
-            <div class="list-item">BTC payment block</div>
-            <div class="list-item">Persistent stats</div>
-            <div class="list-item">Responsive layout</div>
-          </div>
-        </div>
-
         <div class="side-card card subscribe-box" id="subscribe">
           <div class="side-title">Subscription</div>
           <div class="price">$444 <span>/ month</span></div>
           <div class="small" style="margin-bottom:14px;">
-            Limited premium access. Pay with BTC to the address below.
+            Send BTC to the address below and confirm payment manually.
           </div>
 
           <div class="pay-box">
-            <div class="pay-label">BTC Payment Address</div>
+            <div class="pay-label">BTC Address</div>
             <div class="pay-address" id="btcAddress">bc1qmyugenp8xx0wk68tjuxzv0peky88w4wazwz2ph</div>
           </div>
 
+          <div class="qr-wrap">
+            <img
+              id="qrImage"
+              alt="BTC QR Code"
+              src=""
+            />
+          </div>
+
           <div class="cta-row" style="margin-top:14px;">
-            <a class="btn btn-primary" href="#" onclick="copyBtcAddress(event)">Copy BTC Address</a>
+            <button class="btn btn-primary" onclick="copyBtcAddress()">Copy Address</button>
+            <button class="btn btn-ghost" onclick="markInterest()">I Paid</button>
+          </div>
+        </div>
+
+        <div class="side-card card">
+          <div class="side-title">How It Works</div>
+          <div class="list">
+            <div class="list-item">1. Copy the BTC wallet</div>
+            <div class="list-item">2. Send the payment</div>
+            <div class="list-item">3. Save transaction hash</div>
+            <div class="list-item">4. Contact for activation</div>
           </div>
         </div>
 
         <div class="side-card card">
           <div class="side-title">Recent Output</div>
           <div class="list" id="recentOutput">
-            <div class="list-item">[ready] waiting for live events...</div>
+            <div class="list-item">[ready] payment terminal initialized...</div>
           </div>
         </div>
       </div>
     </section>
 
     <div class="footer">
-      DarkCore Terminal © 2026
+      DarkCore Payment Terminal © 2026
     </div>
   </div>
 
 <script>
+  const BTC_ADDRESS = "bc1qmyugenp8xx0wk68tjuxzv0peky88w4wazwz2ph";
+  const PRICE_USD = 444;
+  const STORAGE_KEY = "darkcore_payment_terminal_v1";
+
   const terminalBody = document.getElementById("terminalBody");
   const recentOutput = document.getElementById("recentOutput");
   const logCount = document.getElementById("logCount");
-  const streamCount = document.getElementById("streamCount");
+  const sessionCount = document.getElementById("sessionCount");
   const clock = document.getElementById("clock");
-
-  const STORAGE_KEY = "darkcore_terminal_stats_v2";
-  const BTC_ADDRESS = "bc1qmyugenp8xx0wk68tjuxzv0peky88w4wazwz2ph";
+  const qrImage = document.getElementById("qrImage");
 
   const defaultState = {
-    totalLogs: 23872,
-    fakeStreams: 12,
-    checkedCount: 1482741,
-    sessions: 97
+    totalLogs: 8420,
+    sessions: 128,
+    copyClicks: 19,
+    paidClicks: 4,
+    viewedPayments: 317,
+    openSince: Date.now()
   };
 
   let state = loadState();
@@ -488,26 +566,13 @@
       const raw = localStorage.getItem(STORAGE_KEY);
       if (!raw) return { ...defaultState };
       return { ...defaultState, ...JSON.parse(raw) };
-    } catch {
+    } catch (e) {
       return { ...defaultState };
     }
   }
 
   function saveState() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  }
-
-  function formatLogs(num) {
-    return String(num).padStart(6, "0");
-  }
-
-  function formatStreams(num) {
-    return String(num).padStart(3, "0");
-  }
-
-  function updateCounters() {
-    logCount.textContent = formatLogs(state.totalLogs);
-    streamCount.textContent = formatStreams(state.fakeStreams);
   }
 
   function updateClock() {
@@ -518,8 +583,16 @@
       second: "2-digit"
     });
   }
-  updateClock();
-  setInterval(updateClock, 1000);
+
+  function formatNumber(num, pad = 0) {
+    const str = String(num);
+    return pad ? str.padStart(pad, "0") : str;
+  }
+
+  function updateStats() {
+    logCount.textContent = formatNumber(state.totalLogs, 6);
+    sessionCount.textContent = formatNumber(state.sessions, 3);
+  }
 
   function addLine(html) {
     const div = document.createElement("div");
@@ -527,13 +600,13 @@
     terminalBody.appendChild(div);
     terminalBody.scrollTop = terminalBody.scrollHeight;
 
-    state.totalLogs++;
-    updateCounters();
+    state.totalLogs += 1;
+    updateStats();
     saveState();
 
     const item = document.createElement("div");
     item.className = "list-item";
-    item.innerHTML = html.replace(/<[^>]+>/g, "");
+    item.textContent = div.textContent;
     recentOutput.prepend(item);
 
     while (recentOutput.children.length > 5) {
@@ -541,49 +614,77 @@
     }
   }
 
-  const demoActions = [
-    () => addLine(`<span style="color:#6fa88d">[init]</span> session restored from local storage`),
-    () => addLine(`<span style="color:#7da18f">[sync]</span> dashboard metrics verified`),
-    () => addLine(`<span style="color:#7da18f">[stream]</span> active feed heartbeat received`),
-    () => addLine(`<span style="color:#00ff99">[ok]</span> module response stable`),
-    () => addLine(`<span style="color:#6fa88d">[stats]</span> processed events: ${state.checkedCount}`),
-    () => addLine(`<span style="color:#ffd166">[note]</span> demo terminal mode enabled`),
-    () => addLine(`<span style="color:#00ff99">[cache]</span> counters persisted after refresh`),
-    () => addLine(`<span style="color:#7da18f">[secure]</span> access layer healthy`)
-  ];
-
-  function simulate() {
-    state.checkedCount += Math.floor(Math.random() * 10) + 2;
-    if (Math.random() > 0.35) state.fakeStreams += 1;
-    if (Math.random() > 0.82) state.sessions += 1;
-
-    const action = demoActions[Math.floor(Math.random() * demoActions.length)];
-    action();
-
-    updateCounters();
-    saveState();
-  }
-
-  function copyBtcAddress(event) {
-    event.preventDefault();
+  function copyBtcAddress() {
     navigator.clipboard.writeText(BTC_ADDRESS).then(() => {
-      addLine(`<span style="color:#00ff99">[payment]</span> BTC address copied`);
+      state.copyClicks += 1;
+      addLine(`<span style="color:#00ff99">[copy]</span> BTC address copied to clipboard`);
+      addLine(`<span style="color:#7da18f">[wallet]</span> ${BTC_ADDRESS}`);
+      saveState();
       alert("BTC address copied");
     }).catch(() => {
       alert(BTC_ADDRESS);
     });
   }
 
-  updateCounters();
+  function markInterest() {
+    state.paidClicks += 1;
+    addLine(`<span style="color:#ffd166">[payment]</span> payment confirmation button clicked`);
+    addLine(`<span style="color:#7da18f">[note]</span> ask customer for tx hash verification`);
+    saveState();
+    alert("Payment interest noted");
+  }
+
+  function randomTxHash() {
+    const chars = "abcdef0123456789";
+    let out = "";
+    for (let i = 0; i < 64; i++) {
+      out += chars[Math.floor(Math.random() * chars.length)];
+    }
+    return out;
+  }
+
+  const feedEvents = [
+    () => addLine(`<span style="color:#6fa88d">[system]</span> payment terminal online`),
+    () => addLine(`<span style="color:#7da18f">[wallet]</span> destination loaded successfully`),
+    () => addLine(`<span style="color:#7da18f">[price]</span> premium plan: $${PRICE_USD}/month`),
+    () => addLine(`<span style="color:#00ff99">[ok]</span> QR payment module ready`),
+    () => addLine(`<span style="color:#6fa88d">[view]</span> page visits tracked locally: ${state.viewedPayments}`),
+    () => addLine(`<span style="color:#6fa88d">[copy]</span> total local address copies: ${state.copyClicks}`),
+    () => addLine(`<span style="color:#ffd166">[pending]</span> waiting for customer confirmation`),
+    () => addLine(`<span style="color:#00ff99">[session]</span> active local sessions: ${state.sessions}`),
+    () => addLine(`<span style="color:#7da18f">[tx]</span> reference hash preview: ${randomTxHash().slice(0, 18)}...`),
+    () => addLine(`<span style="color:#6fa88d">[storage]</span> counters restored from previous session`)
+  ];
+
+  function simulateFeed() {
+    state.viewedPayments += Math.floor(Math.random() * 3) + 1;
+    if (Math.random() > 0.55) state.sessions += 1;
+
+    const action = feedEvents[Math.floor(Math.random() * feedEvents.length)];
+    action();
+    updateStats();
+    saveState();
+  }
+
+  function initQr() {
+    const btcUri = `bitcoin:${BTC_ADDRESS}`;
+    qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=${encodeURIComponent(btcUri)}`;
+  }
+
+  updateClock();
+  setInterval(updateClock, 1000);
+
+  initQr();
+  updateStats();
 
   addLine(`<span style="color:#00ff99">[ok]</span> system online`);
-  addLine(`<span style="color:#6fa88d">[stats]</span> loaded logs: ${state.totalLogs}`);
-  addLine(`<span style="color:#6fa88d">[stats]</span> processed events: ${state.checkedCount}`);
-  addLine(`<span style="color:#6fa88d">[stats]</span> active sessions: ${state.sessions}`);
-  addLine(`<span style="color:#ffd166">[billing]</span> subscription price updated to $444/month`);
-  addLine(`<span style="color:#00ff99">[payment]</span> BTC address ready: ${BTC_ADDRESS}`);
+  addLine(`<span style="color:#6fa88d">[subscription]</span> premium access initialized`);
+  addLine(`<span style="color:#7da18f">[price]</span> current plan: $${PRICE_USD}/month`);
+  addLine(`<span style="color:#7da18f">[wallet]</span> ${BTC_ADDRESS}`);
+  addLine(`<span style="color:#6fa88d">[stats]</span> local session counter restored: ${state.sessions}`);
+  addLine(`<span style="color:#6fa88d">[stats]</span> total copies restored: ${state.copyClicks}`);
 
-  setInterval(simulate, 1100);
+  setInterval(simulateFeed, 1400);
 </script>
 </body>
 </html>
