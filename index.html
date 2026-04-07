@@ -2,1660 +2,519 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>SIGNAL/ONE — Living Brand Platform</title>
-  <meta
-    name="description"
-    content="SIGNAL/ONE is a living digital brand platform — a premium internet concept built around daily signals, dynamic mood, cultural relevance, and acquisition-ready presentation."
-  />
-  <meta property="og:title" content="SIGNAL/ONE — Living Brand Platform" />
-  <meta
-    property="og:description"
-    content="A premium living internet concept designed for brands, partners, founders, buyers, and future-facing digital culture."
-  />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://slavcoin.fun/" />
-  <meta name="theme-color" content="#07090d" />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DarkCore Terminal</title>
+  <meta name="description" content="Live terminal style dashboard with premium hacker design." />
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     :root{
-      --bg:#06070b;
-      --bg2:#0b0e14;
-      --bg3:#101521;
-      --card:rgba(255,255,255,.055);
-      --card2:rgba(255,255,255,.038);
-      --line:rgba(255,255,255,.10);
-      --line2:rgba(255,255,255,.06);
-      --text:#f8fafc;
-      --muted:#98a3b8;
-      --muted2:#c0c8d8;
-      --blue:#79a7ff;
-      --purple:#9074ff;
-      --cyan:#7fe6ff;
-      --green:#7af0bc;
-      --gold:#e0c896;
-      --gold2:#9a825b;
-      --shadow:0 30px 90px rgba(0,0,0,.42);
-      --radius:30px;
-      --radius-sm:20px;
-      --max:1320px;
+      --bg:#05080d;
+      --panel:#0b1118;
+      --panel2:#0f1722;
+      --line:rgba(0,255,170,.15);
+      --green:#00ff99;
+      --green2:#19d47c;
+      --text:#d7ffe9;
+      --muted:#7fa391;
+      --red:#ff4d6d;
+      --yellow:#ffd166;
+      --shadow:0 0 30px rgba(0,255,153,.08);
     }
-
-    html { scroll-behavior:smooth; }
-
     body{
-      font-family:"Inter",sans-serif;
-      color:var(--text);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
       background:
-        radial-gradient(circle at 10% 8%, rgba(121,167,255,.15), transparent 22%),
-        radial-gradient(circle at 90% 10%, rgba(224,200,150,.10), transparent 24%),
-        radial-gradient(circle at 50% 100%, rgba(127,230,255,.07), transparent 25%),
-        linear-gradient(180deg, #05060a 0%, #090c13 48%, #05060a 100%);
-      min-height:100vh;
-      overflow-x:hidden;
-      letter-spacing:-0.02em;
+        radial-gradient(circle at top, rgba(0,255,153,.09), transparent 35%),
+        linear-gradient(180deg, #030507 0%, #071019 100%);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
     }
-
-    body::before{
+    .grid-bg::before{
       content:"";
       position:fixed;
       inset:0;
-      pointer-events:none;
       background-image:
-        linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px);
-      background-size:38px 38px;
-      mask-image:radial-gradient(circle at center, black 32%, transparent 88%);
-      opacity:.55;
+        linear-gradient(rgba(0,255,153,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,153,.04) 1px, transparent 1px);
+      background-size: 28px 28px;
+      mask-image: linear-gradient(to bottom, rgba(255,255,255,.75), rgba(255,255,255,.2));
+      pointer-events:none;
       z-index:0;
     }
-
-    body::after{
+    .scan::after{
       content:"";
       position:fixed;
       inset:0;
+      background: linear-gradient(to bottom, transparent 0%, rgba(0,255,153,.05) 48%, transparent 52%, transparent 100%);
+      animation: scan 8s linear infinite;
       pointer-events:none;
-      background:radial-gradient(circle at center, transparent 0%, rgba(0,0,0,.10) 60%, rgba(0,0,0,.34) 100%);
-      z-index:0;
+      z-index:1;
+    }
+    @keyframes scan {
+      0%{ transform: translateY(-100%); }
+      100%{ transform: translateY(100%); }
     }
 
-    a{ color:inherit; text-decoration:none; }
-
-    .container{
-      width:min(var(--max), calc(100% - 28px));
-      margin:0 auto;
+    .wrap{
       position:relative;
       z-index:2;
-    }
-
-    .glass{
-      background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
-      backdrop-filter:blur(18px);
-      -webkit-backdrop-filter:blur(18px);
-      border:1px solid var(--line);
-      box-shadow:var(--shadow);
-    }
-
-    .subtle-glass{
-      background:linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.028));
-      backdrop-filter:blur(14px);
-      -webkit-backdrop-filter:blur(14px);
-      border:1px solid var(--line2);
+      width:min(1180px, calc(100% - 32px));
+      margin:0 auto;
+      padding:20px 0 40px;
     }
 
     .topbar{
-      padding:14px 0 0;
-      position:sticky;
-      top:0;
-      z-index:100;
-      backdrop-filter:blur(14px);
-      -webkit-backdrop-filter:blur(14px);
-    }
-
-    .nav{
-      border-radius:999px;
-      padding:12px 14px;
       display:flex;
-      align-items:center;
       justify-content:space-between;
-      gap:16px;
-      min-height:68px;
+      align-items:center;
+      gap:14px;
+      padding:14px 18px;
+      border:1px solid var(--line);
+      background:rgba(8,13,19,.7);
+      backdrop-filter: blur(10px);
+      border-radius:18px;
+      box-shadow: var(--shadow);
+      margin-bottom:20px;
     }
-
-    .logo{
+    .brand{
       display:flex;
       align-items:center;
       gap:12px;
       min-width:0;
-      flex-shrink:0;
     }
-
-    .logo-badge{
-      width:42px;
-      height:42px;
-      border-radius:14px;
-      display:grid;
-      place-items:center;
-      font-size:12px;
-      font-weight:900;
-      color:#0b0d14;
-      background:linear-gradient(135deg, #f8ecd2 0%, #dcc18a 45%, #8f724c 100%);
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.40),
-        0 12px 30px rgba(224,200,150,.16);
-      flex-shrink:0;
+    .dot{
+      width:12px; height:12px; border-radius:50%;
+      background:var(--green);
+      box-shadow:0 0 18px var(--green);
+      flex:0 0 auto;
     }
-
-    .logo-text strong{
-      display:block;
-      font-size:13px;
-      letter-spacing:.20em;
-      line-height:1;
-      text-transform:uppercase;
-    }
-
-    .logo-text span{
-      display:block;
-      margin-top:6px;
-      color:var(--muted);
-      font-size:11px;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      line-height:1;
-    }
-
-    .nav-links{
-      display:flex;
-      gap:6px;
-      align-items:center;
-      flex-wrap:wrap;
-      justify-content:center;
-    }
-
-    .nav-links a{
-      padding:10px 12px;
-      border-radius:999px;
-      color:var(--muted);
-      font-size:14px;
-      transition:.22s ease;
-    }
-
-    .nav-links a:hover{
-      color:#fff;
-      background:rgba(255,255,255,.06);
-    }
-
-    .nav-cta{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      flex-shrink:0;
-    }
-
-    .btn{
-      border:0;
-      outline:0;
-      cursor:pointer;
-      font:inherit;
-      border-radius:999px;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      transition:.24s ease;
-      white-space:nowrap;
-      font-weight:700;
-    }
-
-    .btn-sm{
-      height:42px;
-      padding:0 16px;
-      font-size:14px;
-    }
-
-    .btn-lg{
-      height:54px;
-      padding:0 22px;
+    .brand h1{
       font-size:15px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      white-space:nowrap;
     }
-
-    .btn-primary{
-      color:#0a0d14;
-      background:linear-gradient(135deg, #f8ecd2 0%, #dfc28f 45%, #9a8058 100%);
-      box-shadow:0 14px 34px rgba(224,200,150,.18);
-    }
-
-    .btn-primary:hover,
-    .btn-dark:hover{
-      transform:translateY(-2px);
-    }
-
-    .btn-dark{
-      color:#fff;
-      background:rgba(255,255,255,.055);
-      border:1px solid var(--line);
+    .status{
+      color:var(--muted);
+      font-size:12px;
+      white-space:nowrap;
     }
 
     .hero{
-      padding:28px 0 20px;
-    }
-
-    .hero-grid{
       display:grid;
-      grid-template-columns:1.12fr .88fr;
+      grid-template-columns:1.1fr .9fr;
       gap:18px;
+      margin-bottom:18px;
     }
-
-    .hero-main,
-    .hero-side{
-      border-radius:32px;
-      padding:28px;
-      position:relative;
+    .card{
+      background:linear-gradient(180deg, rgba(10,17,24,.95), rgba(8,12,17,.92));
+      border:1px solid var(--line);
+      border-radius:24px;
+      box-shadow: var(--shadow);
       overflow:hidden;
     }
-
-    .hero-main::before,
-    .cta-box::before{
-      content:"";
-      position:absolute;
-      width:480px;
-      height:480px;
-      right:-120px;
-      bottom:-170px;
-      border-radius:50%;
-      background:radial-gradient(circle, rgba(121,167,255,.18), transparent 62%);
-      filter:blur(20px);
-      pointer-events:none;
+    .hero-left{
+      padding:28px;
+      min-height:320px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
     }
-
-    .hero-main::after,
-    .cta-box::after{
-      content:"";
-      position:absolute;
-      width:380px;
-      height:380px;
-      left:-80px;
-      top:-120px;
-      border-radius:50%;
-      background:radial-gradient(circle, rgba(224,200,150,.12), transparent 60%);
-      filter:blur(24px);
-      pointer-events:none;
-    }
-
     .eyebrow{
       display:inline-flex;
       align-items:center;
       gap:10px;
-      padding:10px 14px;
+      border:1px solid rgba(0,255,153,.18);
       border-radius:999px;
-      background:rgba(255,255,255,.05);
-      border:1px solid var(--line);
+      padding:8px 12px;
+      color:#aef7cf;
       font-size:12px;
-      font-weight:800;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      color:#e5ecff;
-    }
-
-    .dot{
-      width:9px;
-      height:9px;
-      border-radius:50%;
-      background:linear-gradient(135deg, var(--green), var(--cyan));
-      box-shadow:0 0 18px rgba(122,240,188,.6);
-    }
-
-    h1{
-      margin-top:18px;
-      font-size:clamp(42px, 7vw, 92px);
-      line-height:.92;
-      letter-spacing:-.06em;
-      font-weight:900;
-      max-width:920px;
-    }
-
-    .gradient{
-      background:linear-gradient(90deg, #fff 0%, #dce7ff 22%, #9aeaff 50%, #d9c392 78%, #fff 100%);
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-    }
-
-    .lead{
-      margin-top:18px;
-      max-width:760px;
-      color:var(--muted2);
-      font-size:18px;
-      line-height:1.75;
-    }
-
-    .hero-actions{
-      margin-top:24px;
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-    }
-
-    .live-strip{
-      margin-top:24px;
-      display:grid;
-      grid-template-columns:repeat(4, minmax(0,1fr));
-      gap:12px;
-    }
-
-    .live-box{
-      border-radius:22px;
-      padding:16px;
-      background:rgba(255,255,255,.045);
-      border:1px solid var(--line);
-      min-height:120px;
-    }
-
-    .live-box small{
-      display:block;
-      color:var(--muted);
-      font-size:11px;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-    }
-
-    .live-box strong{
-      display:block;
-      margin-top:10px;
-      font-size:24px;
-      letter-spacing:-.04em;
-    }
-
-    .live-box span{
-      display:block;
-      margin-top:10px;
-      color:#dce6ff;
-      line-height:1.55;
-      font-size:13px;
-    }
-
-    .signal-panel{
-      border-radius:26px;
-      padding:22px;
-      background:
-        radial-gradient(circle at top right, rgba(121,167,255,.14), transparent 36%),
-        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
-      border:1px solid var(--line);
-      min-height:250px;
-    }
-
-    .signal-panel h3,
-    .small-label{
-      font-size:12px;
-      letter-spacing:.16em;
-      text-transform:uppercase;
-      color:#dfe8ff;
-    }
-
-    .signal-stack{
-      margin-top:18px;
-      display:grid;
-      gap:12px;
-    }
-
-    .signal-item{
-      border-radius:18px;
-      background:rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.08);
-      padding:14px;
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      align-items:flex-start;
-    }
-
-    .signal-item strong{
-      display:block;
-      font-size:15px;
-      line-height:1.35;
-    }
-
-    .signal-item span{
-      display:block;
-      margin-top:6px;
-      font-size:12px;
-      color:var(--muted);
-      line-height:1.5;
-    }
-
-    .tag{
-      padding:8px 11px;
-      border-radius:999px;
-      font-size:11px;
-      font-weight:900;
-      text-transform:uppercase;
-      letter-spacing:.08em;
-      white-space:nowrap;
-      color:#09131d;
-    }
-
-    .tag-blue{ background:linear-gradient(135deg,#8bc0ff,#9af2ff); }
-    .tag-green{ background:linear-gradient(135deg,#7cf2c5,#b1ffe5); }
-    .tag-gold{ background:linear-gradient(135deg,#f4ddb1,#dcc18a); }
-
-    .side-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:14px;
-      margin-top:14px;
-    }
-
-    .mini{
-      border-radius:24px;
-      padding:18px;
-      background:rgba(255,255,255,.045);
-      border:1px solid var(--line);
-      min-height:180px;
-    }
-
-    .mini small{
-      display:block;
-      font-size:11px;
-      color:var(--muted);
-      text-transform:uppercase;
-      letter-spacing:.14em;
-    }
-
-    .mini strong{
-      display:block;
-      margin-top:14px;
-      font-size:24px;
-      line-height:1.06;
-      letter-spacing:-.04em;
-    }
-
-    .mini p{
-      margin-top:12px;
-      color:var(--muted2);
-      font-size:14px;
-      line-height:1.68;
-    }
-
-    .section{
-      padding:22px 0;
-    }
-
-    .section-head{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-end;
-      gap:16px;
-      flex-wrap:wrap;
+      width:max-content;
       margin-bottom:18px;
+      background:rgba(0,255,153,.05);
     }
-
-    .section-head h2{
-      font-size:clamp(30px, 4.5vw, 58px);
+    .hero h2{
+      font-size:clamp(30px, 6vw, 64px);
       line-height:.95;
-      letter-spacing:-.05em;
-    }
-
-    .section-head p{
-      max-width:660px;
-      color:var(--muted2);
-      line-height:1.78;
-      font-size:16px;
-    }
-
-    .two-col{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:18px;
-    }
-
-    .three-col{
-      display:grid;
-      grid-template-columns:repeat(3, minmax(0,1fr));
-      gap:16px;
-    }
-
-    .panel{
-      border-radius:30px;
-      padding:24px;
-    }
-
-    .panel h3{
-      font-size:28px;
       letter-spacing:-.04em;
+      margin-bottom:14px;
+      text-transform:uppercase;
+      text-shadow:0 0 18px rgba(0,255,153,.08);
     }
-
-    .panel .sub{
-      margin-top:10px;
-      color:var(--muted2);
+    .hero p{
+      color:var(--muted);
       font-size:15px;
-      line-height:1.75;
-    }
-
-    .pulse{
-      margin-top:18px;
-      display:grid;
-      gap:14px;
-    }
-
-    .pulse-card,
-    .news-card,
-    .idea,
-    .partner-card{
-      border-radius:22px;
-      padding:18px;
-      background:rgba(255,255,255,.045);
-      border:1px solid var(--line);
-    }
-
-    .pulse-card small,
-    .news-card small,
-    .partner-card small{
-      display:block;
-      color:var(--muted);
-      font-size:11px;
-      text-transform:uppercase;
-      letter-spacing:.14em;
-      margin-bottom:10px;
-    }
-
-    .pulse-card strong,
-    .news-card strong,
-    .partner-card strong{
-      display:block;
-      font-size:20px;
-      line-height:1.45;
-      color:#eef3ff;
-    }
-
-    .pulse-card p,
-    .news-card p,
-    .partner-card p{
-      margin-top:12px;
-      color:var(--muted2);
       line-height:1.7;
-      font-size:14px;
+      max-width:700px;
+      margin-bottom:22px;
     }
-
-    .quote-box{
-      margin-top:18px;
-      border-radius:24px;
-      padding:22px;
-      background:linear-gradient(135deg, rgba(121,167,255,.10), rgba(224,200,150,.08));
-      border:1px solid rgba(255,255,255,.10);
-    }
-
-    .quote-box blockquote{
-      font-size:26px;
-      line-height:1.38;
-      letter-spacing:-.03em;
-      max-width:620px;
-    }
-
-    .quote-box span{
-      display:block;
-      margin-top:12px;
-      color:var(--muted);
-      font-size:13px;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-    }
-
-    .manifesto{
-      display:grid;
+    .cta-row{
+      display:flex;
+      flex-wrap:wrap;
       gap:12px;
-      margin-top:18px;
+      align-items:center;
     }
-
-    .manifesto-item{
-      border-radius:22px;
-      padding:16px 18px;
-      background:rgba(255,255,255,.045);
-      border:1px solid var(--line);
-      display:grid;
-      grid-template-columns:46px 1fr;
-      gap:14px;
-      align-items:start;
-    }
-
-    .num{
-      width:42px;
-      height:42px;
+    .btn{
+      text-decoration:none;
+      border:none;
+      cursor:pointer;
+      padding:14px 18px;
       border-radius:14px;
-      background:linear-gradient(135deg, #f5e0b2, #8f7450);
-      color:#0b0d14;
-      display:grid;
-      place-items:center;
-      font-weight:900;
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.22);
-    }
-
-    .manifesto-item strong{
-      display:block;
-      font-size:17px;
-      letter-spacing:-.02em;
-    }
-
-    .manifesto-item p{
-      margin-top:7px;
-      color:var(--muted2);
-      line-height:1.72;
+      font-weight:700;
       font-size:14px;
-    }
-
-    .idea{
-      min-height:245px;
-      transition:.24s ease;
-    }
-
-    .idea:hover,
-    .news-card:hover,
-    .partner-card:hover{
-      transform:translateY(-4px);
-    }
-
-    .icon{
-      width:54px;
-      height:54px;
-      border-radius:18px;
-      display:grid;
-      place-items:center;
-      font-size:24px;
-      background:rgba(255,255,255,.07);
-      border:1px solid rgba(255,255,255,.10);
-    }
-
-    .idea h4{
-      margin-top:16px;
-      font-size:20px;
-      letter-spacing:-.03em;
-    }
-
-    .idea p{
-      margin-top:12px;
-      color:var(--muted2);
-      line-height:1.75;
-      font-size:14px;
-    }
-
-    .news-grid{
-      display:grid;
-      grid-template-columns:1.15fr .85fr;
-      gap:18px;
-    }
-
-    .news-list{
-      display:grid;
-      gap:14px;
-    }
-
-    .news-badge{
+      letter-spacing:.05em;
+      text-transform:uppercase;
+      transition:.2s ease;
       display:inline-flex;
       align-items:center;
-      gap:8px;
-      padding:8px 12px;
+      gap:10px;
+    }
+    .btn-primary{
+      background:linear-gradient(180deg, var(--green), var(--green2));
+      color:#031109;
+      box-shadow:0 10px 30px rgba(0,255,153,.18);
+    }
+    .btn-primary:hover{ transform:translateY(-2px); }
+    .btn-ghost{
+      color:#beffdb;
+      background:transparent;
+      border:1px solid rgba(0,255,153,.18);
+    }
+    .price-badge{
+      background:rgba(255,209,102,.12);
+      color:var(--yellow);
+      border:1px solid rgba(255,209,102,.24);
+      padding:9px 12px;
       border-radius:999px;
-      font-size:11px;
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+    }
+
+    .hero-right{
+      padding:18px;
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+    .mini-stats{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:12px;
+    }
+    .stat{
+      background:rgba(255,255,255,.02);
+      border:1px solid rgba(0,255,153,.12);
+      border-radius:18px;
+      padding:16px;
+    }
+    .stat .label{
+      color:var(--muted);
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      margin-bottom:8px;
+    }
+    .stat .value{
+      font-size:26px;
       font-weight:800;
+      color:#ebfff3;
+    }
+
+    .terminal-wrap{
+      display:grid;
+      grid-template-columns:1fr 320px;
+      gap:18px;
+    }
+    .terminal{
+      min-height:560px;
+      display:flex;
+      flex-direction:column;
+    }
+    .terminal-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 16px;
+      border-bottom:1px solid var(--line);
+      background:rgba(255,255,255,.01);
+    }
+    .terminal-dots{
+      display:flex; gap:8px;
+    }
+    .terminal-dots span{
+      width:10px; height:10px; border-radius:50%;
+      display:block;
+    }
+    .terminal-dots span:nth-child(1){ background:#ff5f57; }
+    .terminal-dots span:nth-child(2){ background:#febc2e; }
+    .terminal-dots span:nth-child(3){ background:#28c840; }
+    .terminal-title{
+      color:#a7c7b5;
+      font-size:12px;
+      letter-spacing:.1em;
+      text-transform:uppercase;
+    }
+    .terminal-body{
+      padding:18px;
+      flex:1;
+      font-size:13px;
+      line-height:1.75;
+      color:#bfffdc;
+      white-space:pre-wrap;
+      overflow:auto;
+      max-height:560px;
+    }
+    .line.dim{ color:#7da18f; }
+    .line.warn{ color:var(--yellow); }
+    .line.ok{ color:var(--green); }
+    .line.err{ color:#ff8ca3; }
+
+    .side{
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+    }
+    .side-card{
+      padding:18px;
+    }
+    .side-title{
+      font-size:12px;
+      color:#9cccb1;
       letter-spacing:.12em;
       text-transform:uppercase;
-      background:rgba(255,255,255,.05);
-      border:1px solid var(--line);
-      color:#e5ecff;
       margin-bottom:14px;
     }
-
-    .founder-box{
-      border-radius:30px;
-      padding:24px;
-      position:relative;
-      overflow:hidden;
-    }
-
-    .founder-box::before{
-      content:"";
-      position:absolute;
-      width:320px;
-      height:320px;
-      right:-70px;
-      top:-100px;
-      border-radius:50%;
-      background:radial-gradient(circle, rgba(224,200,150,.14), transparent 64%);
-      filter:blur(18px);
-      pointer-events:none;
-    }
-
-    .founder-title{
-      font-size:clamp(30px, 4vw, 54px);
-      line-height:.95;
-      letter-spacing:-.05em;
-      max-width:700px;
-    }
-
-    .founder-text{
-      margin-top:16px;
-      max-width:780px;
-      color:var(--muted2);
-      font-size:16px;
-      line-height:1.85;
-    }
-
-    .founder-metrics{
-      margin-top:20px;
-      display:grid;
-      grid-template-columns:repeat(3, minmax(0,1fr));
-      gap:12px;
-    }
-
-    .metric{
-      border-radius:22px;
-      padding:16px;
-      background:rgba(255,255,255,.045);
-      border:1px solid var(--line);
-    }
-
-    .metric small{
-      display:block;
-      color:var(--muted);
-      font-size:11px;
-      letter-spacing:.13em;
-      text-transform:uppercase;
-    }
-
-    .metric strong{
-      display:block;
-      margin-top:10px;
-      font-size:22px;
-      line-height:1.15;
-    }
-
-    .metric span{
-      display:block;
-      margin-top:10px;
-      color:var(--muted2);
-      font-size:13px;
-      line-height:1.6;
-    }
-
-    .cta{
-      padding:18px 0 60px;
-    }
-
-    .cta-box{
-      border-radius:34px;
-      padding:28px;
-      position:relative;
-      overflow:hidden;
-    }
-
-    .cta-grid{
-      position:relative;
-      z-index:2;
-      display:grid;
-      grid-template-columns:1.1fr .9fr;
-      gap:18px;
-      align-items:center;
-    }
-
-    .cta h2{
-      font-size:clamp(34px, 5vw, 70px);
-      line-height:.94;
-      letter-spacing:-.05em;
-      max-width:760px;
-    }
-
-    .cta p{
-      margin-top:16px;
-      max-width:690px;
-      color:var(--muted2);
-      line-height:1.8;
-      font-size:16px;
-    }
-
-    .cta-actions{
-      margin-top:22px;
+    .list{
       display:flex;
-      gap:12px;
-      flex-wrap:wrap;
+      flex-direction:column;
+      gap:10px;
     }
-
-    .contact-card{
-      border-radius:28px;
-      padding:24px;
-      background:rgba(255,255,255,.055);
-      border:1px solid var(--line);
+    .list-item{
+      padding:12px 12px;
+      border:1px solid rgba(0,255,153,.1);
+      border-radius:14px;
+      background:rgba(255,255,255,.02);
+      color:#d2ffea;
+      font-size:13px;
     }
-
-    .contact-card small{
-      display:block;
+    .subscribe-box{
+      border:1px solid rgba(255,209,102,.2);
+      background:linear-gradient(180deg, rgba(255,209,102,.08), rgba(255,209,102,.03));
+    }
+    .price{
+      font-size:42px;
+      font-weight:900;
+      line-height:1;
+      margin:10px 0 8px;
+    }
+    .price span{
+      font-size:16px;
       color:var(--muted);
-      font-size:11px;
-      text-transform:uppercase;
-      letter-spacing:.16em;
+      font-weight:600;
     }
-
-    .contact-card strong{
-      display:block;
-      margin-top:12px;
-      font-size:17px;
-      line-height:1.6;
-      word-break:break-word;
+    .small{
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.7;
     }
-
-    .contact-card p{
-      margin-top:12px;
-      color:#dfe7ff;
-      font-size:14px;
-      line-height:1.75;
-    }
-
     .footer{
-      padding:0 0 34px;
-      color:var(--muted);
-      font-size:13px;
+      margin-top:18px;
+      padding:18px 0 10px;
+      color:#6e907f;
+      font-size:12px;
+      text-align:center;
     }
 
-    .footer-box{
-      padding:16px 0;
-      border-top:1px solid rgba(255,255,255,.08);
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      flex-wrap:wrap;
-    }
-
-    .reveal{
-      opacity:0;
-      transform:translateY(24px);
-      transition:opacity .75s ease, transform .75s ease;
-    }
-
-    .reveal.show{
-      opacity:1;
-      transform:translateY(0);
-    }
-
-    ::-webkit-scrollbar{ width:10px; height:10px; }
-    ::-webkit-scrollbar-thumb{ background:rgba(255,255,255,.14); border-radius:999px; }
-    ::-webkit-scrollbar-track{ background:transparent; }
-
-    @media (max-width: 1120px){
-      .hero-grid,
-      .two-col,
-      .three-col,
-      .news-grid,
-      .cta-grid{
+    @media (max-width: 960px){
+      .hero, .terminal-wrap{
         grid-template-columns:1fr;
       }
-    }
-
-    @media (max-width: 900px){
-      .nav{
-        border-radius:26px;
-        flex-wrap:wrap;
-        justify-content:center;
-        padding:12px;
-      }
-
-      .logo{
-        width:100%;
-        justify-content:center;
-      }
-
-      .nav-links{
-        width:100%;
-        order:3;
-      }
-
-      .nav-cta{
-        width:100%;
-        justify-content:center;
-      }
-
-      .hero-main,
-      .hero-side,
-      .panel,
-      .cta-box,
-      .founder-box{
-        border-radius:26px;
-        padding:20px;
-      }
-
-      .live-strip,
-      .side-grid,
-      .founder-metrics{
-        grid-template-columns:1fr 1fr;
-      }
-    }
-
-    @media (max-width: 640px){
-      .container{
-        width:min(var(--max), calc(100% - 18px));
-      }
-
-      .topbar{
-        padding-top:10px;
-      }
-
-      .nav{
-        min-height:auto;
-        gap:10px;
-      }
-
-      .nav-links a{
-        padding:9px 10px;
-        font-size:13px;
-      }
-
-      h1{
-        font-size:44px;
-      }
-
-      .lead{
-        font-size:16px;
-      }
-
-      .live-strip,
-      .side-grid,
-      .founder-metrics{
-        grid-template-columns:1fr;
-      }
-
-      .hero-actions .btn,
-      .cta-actions .btn,
-      .nav-cta .btn{
-        width:100%;
-      }
-
-      .btn-lg{
-        width:100%;
-      }
-
-      .quote-box blockquote{
-        font-size:21px;
-      }
-
-      .section-head h2,
-      .cta h2,
-      .founder-title{
-        font-size:38px;
-      }
+      .hero-left{ min-height:auto; }
     }
   </style>
 </head>
-<body>
-  <div class="container topbar">
-    <div class="nav glass">
-      <div class="logo">
-        <div class="logo-badge">SC</div>
-        <div class="logo-text">
-          <strong>SIGNAL/ONE</strong>
-          <span>Living brand platform</span>
+<body class="grid-bg scan">
+  <div class="wrap">
+    <div class="topbar card">
+      <div class="brand">
+        <span class="dot"></span>
+        <h1>DarkCore Terminal</h1>
+      </div>
+      <div class="status" id="clock">LIVE</div>
+    </div>
+
+    <section class="hero">
+      <div class="hero-left card">
+        <div class="eyebrow">
+          <span>●</span>
+          <span>Live Terminal Experience</span>
+        </div>
+        <h2>Hacker Style<br>Dashboard</h2>
+        <p>
+          Premium dark interface with live terminal animation, clean stats, discount badge,
+          and simple subscription flow. Use it as a demo, landing page, or product front-end.
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#subscribe">Subscribe — $222</a>
+          <a class="btn btn-ghost" href="#terminal">View Live Terminal</a>
+          <div class="price-badge">Discount Active</div>
         </div>
       </div>
 
-      <div class="nav-links">
-        <a href="#today">Today</a>
-        <a href="#manifesto">Manifesto</a>
-        <a href="#founder">Founder</a>
-        <a href="#news">News</a>
-        <a href="#value">Value</a>
-        <a href="#contact">Contact</a>
+      <div class="hero-right card">
+        <div class="mini-stats">
+          <div class="stat">
+            <div class="label">Status</div>
+            <div class="value">Online</div>
+          </div>
+          <div class="stat">
+            <div class="label">Mode</div>
+            <div class="value">Secure</div>
+          </div>
+          <div class="stat">
+            <div class="label">Streams</div>
+            <div class="value" id="streamCount">08</div>
+          </div>
+          <div class="stat">
+            <div class="label">Logs</div>
+            <div class="value" id="logCount">0000</div>
+          </div>
+        </div>
+
+        <div class="stat" style="height:100%;">
+          <div class="label">System Note</div>
+          <div class="small">
+            This page shows a simulated live processing terminal for visual/demo use.
+            You can later connect it to your own lawful backend, logger, parser, or analytics tool.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="terminal-wrap" id="terminal">
+      <div class="terminal card">
+        <div class="terminal-top">
+          <div class="terminal-dots">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="terminal-title">live-terminal-feed</div>
+          <div class="terminal-title">status: active</div>
+        </div>
+        <div class="terminal-body" id="terminalBody"></div>
       </div>
 
-      <div class="nav-cta">
-        <a class="btn btn-sm btn-dark" href="#news">Latest updates</a>
-        <a class="btn btn-sm btn-primary" href="#contact">Work with me</a>
+      <div class="side">
+        <div class="side-card card">
+          <div class="side-title">Features</div>
+          <div class="list">
+            <div class="list-item">Live terminal animation</div>
+            <div class="list-item">Premium hacker design</div>
+            <div class="list-item">Subscription block</div>
+            <div class="list-item">Responsive layout</div>
+            <div class="list-item">Easy to edit</div>
+          </div>
+        </div>
+
+        <div class="side-card card subscribe-box" id="subscribe">
+          <div class="side-title">Subscription</div>
+          <div class="price">$222 <span>/ month</span></div>
+          <div class="small" style="margin-bottom:14px;">
+            Limited discount. Simple premium access button for your landing page.
+          </div>
+          <a class="btn btn-primary" href="#" onclick="fakeSubscribe(event)">Subscribe Now</a>
+        </div>
+
+        <div class="side-card card">
+          <div class="side-title">Recent Output</div>
+          <div class="list" id="recentOutput">
+            <div class="list-item">[ready] waiting for live events...</div>
+          </div>
+        </div>
       </div>
+    </section>
+
+    <div class="footer">
+      DarkCore Terminal © 2026
     </div>
   </div>
 
-  <main>
-    <section class="hero">
-      <div class="container hero-grid">
-        <div class="hero-main glass reveal">
-          <div class="eyebrow">
-            <span class="dot"></span>
-            updates itself every day
-          </div>
-
-          <h1>
-            <span class="gradient">A premium digital concept</span><br>
-            that feels alive.
-          </h1>
-
-          <p class="lead">
-            SIGNAL/ONE is a living internet platform. It changes with time, publishes a daily signal,
-            updates its mission, shifts its mood, and presents itself as a premium digital object instead
-            of a static landing page. The goal is simple: build something memorable, high-value, and worth revisiting.
-          </p>
-
-          <div class="hero-actions">
-            <a href="#today" class="btn btn-lg btn-primary">See today's signal</a>
-            <button class="btn btn-lg btn-dark" id="copyMainPitch">Copy pitch text</button>
-          </div>
-
-          <div class="live-strip">
-            <div class="live-box">
-              <small>Today</small>
-              <strong id="todayDate">—</strong>
-              <span>The site changes based on real date and time.</span>
-            </div>
-
-            <div class="live-box">
-              <small>Clock</small>
-              <strong id="liveClock">—</strong>
-              <span>Live browser time updates every second.</span>
-            </div>
-
-            <div class="live-box">
-              <small>Next refresh</small>
-              <strong id="nextReset">—</strong>
-              <span>Countdown to tomorrow’s new daily signal.</span>
-            </div>
-
-            <div class="live-box">
-              <small>Mode</small>
-              <strong id="dayMode">—</strong>
-              <span>The site adapts mood based on time of day.</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="hero-side glass reveal">
-          <div class="signal-panel">
-            <h3>Live system</h3>
-
-            <div class="signal-stack">
-              <div class="signal-item">
-                <div>
-                  <strong id="signalTitle">Loading daily signal...</strong>
-                  <span id="signalSubtitle">Please wait a moment.</span>
-                </div>
-                <div class="tag tag-blue">Live</div>
-              </div>
-
-              <div class="signal-item">
-                <div>
-                  <strong id="missionTitle">Loading mission...</strong>
-                  <span id="missionSubtitle">This changes every day.</span>
-                </div>
-                <div class="tag tag-green">Daily</div>
-              </div>
-
-              <div class="signal-item">
-                <div>
-                  <strong id="focusTitle">Loading focus...</strong>
-                  <span id="focusSubtitle">A changing idea to think about.</span>
-                </div>
-                <div class="tag tag-gold">Now</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="side-grid">
-            <div class="mini">
-              <small>Why it exists</small>
-              <strong>To feel alive</strong>
-              <p>
-                Static websites go stale. A living site creates curiosity, repeat visits, stronger identity, and premium presence.
-              </p>
-            </div>
-
-            <div class="mini">
-              <small>What it can become</small>
-              <strong>Brand asset</strong>
-              <p>
-                A concept site, founder page, acquisition-ready digital object, partnership landing, or cultural media layer.
-              </p>
-            </div>
-
-            <div class="mini">
-              <small>What updates</small>
-              <strong>Message + mood</strong>
-              <p>
-                Daily signal, daily mission, live clock, countdown, phase-of-day tone, and rotating dynamic meaning.
-              </p>
-            </div>
-
-            <div class="mini">
-              <small>What matters</small>
-              <strong>People read it</strong>
-              <p>
-                Great design is not enough. The page needs rhythm, tension, value, and a reason to return.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="today">
-      <div class="container">
-        <div class="section-head reveal">
-          <h2>Today’s signal</h2>
-          <p>
-            Every day this page presents a new theme, mission, and angle. That gives it a reason to exist tomorrow, not only today.
-          </p>
-        </div>
-
-        <div class="two-col">
-          <div class="panel glass reveal">
-            <h3 id="dailyHeadline">Loading today's headline...</h3>
-            <p class="sub" id="dailyBody">Loading message...</p>
-
-            <div class="quote-box">
-              <blockquote id="dailyQuote">“Loading quote...”</blockquote>
-              <span id="dailyQuoteMeta">Daily system note</span>
-            </div>
-          </div>
-
-          <div class="panel glass reveal">
-            <h3>How it works 24/7</h3>
-            <p class="sub">
-              This version updates itself directly in the browser using date and time logic.
-              No manual refresh of content is needed for the daily message, live clock, countdown, or mood state.
-            </p>
-
-            <div class="pulse">
-              <div class="pulse-card">
-                <small>Daily mission</small>
-                <strong id="dailyMissionCard">Loading...</strong>
-                <p>One thought, one move, one direction. The page changes the challenge every day.</p>
-              </div>
-
-              <div class="pulse-card">
-                <small>Current focus</small>
-                <strong id="currentFocusCard">Loading...</strong>
-                <p>This is the main strategic or emotional direction the page is pushing right now.</p>
-              </div>
-
-              <div class="pulse-card">
-                <small>Phase of day</small>
-                <strong id="phaseCard">Loading...</strong>
-                <p>The language changes depending on whether it is morning, day, evening, or night.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="manifesto">
-      <div class="container">
-        <div class="section-head reveal">
-          <h2>Manifesto</h2>
-          <p>
-            This project is about signal, memory, attention, identity, future, and building something that doesn’t feel disposable.
-          </p>
-        </div>
-
-        <div class="two-col">
-          <div class="panel glass reveal">
-            <h3>What this project believes</h3>
-
-            <div class="manifesto">
-              <div class="manifesto-item">
-                <div class="num">1</div>
-                <div>
-                  <strong>The internet needs memorable places.</strong>
-                  <p>Not every site should feel like a template. Some should feel like a thought worth returning to.</p>
-                </div>
-              </div>
-
-              <div class="manifesto-item">
-                <div class="num">2</div>
-                <div>
-                  <strong>Design without meaning dies fast.</strong>
-                  <p>Style matters, but identity matters more. A strong site needs a reason to exist.</p>
-                </div>
-              </div>
-
-              <div class="manifesto-item">
-                <div class="num">3</div>
-                <div>
-                  <strong>Daily change creates habit.</strong>
-                  <p>When the page shifts every day, it invites re-entry. That is how a digital object starts feeling alive.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="panel glass reveal">
-            <h3>Why it matters commercially</h3>
-
-            <div class="manifesto">
-              <div class="manifesto-item">
-                <div class="num">4</div>
-                <div>
-                  <strong>A campaign object.</strong>
-                  <p>Brands can use a system like this for launches, creative drops, limited activations, or premium positioning.</p>
-                </div>
-              </div>
-
-              <div class="manifesto-item">
-                <div class="num">5</div>
-                <div>
-                  <strong>A founder identity page.</strong>
-                  <p>It can work as a premium digital home for someone building products, media, or culture.</p>
-                </div>
-              </div>
-
-              <div class="manifesto-item">
-                <div class="num">6</div>
-                <div>
-                  <strong>An acquisition-ready asset.</strong>
-                  <p>Not just a page, but a branded concept with identity, repetition, perceived value, and expansion potential.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="founder">
-      <div class="container">
-        <div class="founder-box glass reveal">
-          <div class="eyebrow">
-            <span class="dot"></span>
-            founder note
-          </div>
-
-          <h2 class="founder-title">I’m 20, and my talent is real.</h2>
-
-          <p class="founder-text">
-            I understand youth culture, digital attention, internet behavior, branding, and how modern audiences react to ideas.
-            I can turn raw vision into concepts that feel alive, current, and memorable. I move fast, think visually, and understand
-            what people actually notice online. I’m looking for the right opportunity, collaboration, reward, or team that values real instinct.
-          </p>
-
-          <div class="founder-metrics">
-            <div class="metric">
-              <small>Strength</small>
-              <strong>Creative instinct</strong>
-              <span>Strong sense of attention, culture, brand feeling, and internet-native presentation.</span>
-            </div>
-
-            <div class="metric">
-              <small>Value</small>
-              <strong>Fast execution</strong>
-              <span>I can turn ideas into visible concepts quickly and make them feel premium, sharp, and sellable.</span>
-            </div>
-
-            <div class="metric">
-              <small>Direction</small>
-              <strong>Right opportunity</strong>
-              <span>Open to collaboration, reward, partnership, acquisition talks, or work with a strong team.</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="news">
-      <div class="container">
-        <div class="section-head reveal">
-          <h2>News & updates</h2>
-          <p>
-            This block makes the project feel active and current. It gives the visitor something new to scan fast and keeps the site from feeling frozen.
-          </p>
-        </div>
-
-        <div class="news-grid">
-          <div class="panel glass reveal">
-            <div class="news-badge">Live updates</div>
-            <div class="news-list">
-              <div class="news-card">
-                <small>Status</small>
-                <strong>Platform is live and evolving.</strong>
-                <p>
-                  The project already runs as a living site with dynamic daily content, live clock logic, changing mood, and a premium presentation layer.
-                </p>
-              </div>
-
-              <div class="news-card">
-                <small>Current direction</small>
-                <strong>Built to become a premium digital asset.</strong>
-                <p>
-                  The goal is to make the platform presentable to brands, collaborators, buyers, and future-facing teams as a strong internet concept.
-                </p>
-              </div>
-
-              <div class="news-card">
-                <small>Open</small>
-                <strong>Collaboration, reward, work, or acquisition conversations.</strong>
-                <p>
-                  The site is positioned not only as a personal concept, but as a premium object that can evolve into a real commercial or cultural product.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="panel glass reveal">
-            <h3>Why this block matters</h3>
-            <p class="sub">
-              A premium site should not only look expensive. It should feel current, active, and moving. This section gives the project visible motion.
-            </p>
-
-            <div class="pulse">
-              <div class="pulse-card">
-                <small>For brands</small>
-                <strong>Feels maintained and alive</strong>
-                <p>That raises trust, attention, and perceived value.</p>
-              </div>
-
-              <div class="pulse-card">
-                <small>For buyers</small>
-                <strong>Shows momentum</strong>
-                <p>A moving project feels more valuable than a static file sitting online.</p>
-              </div>
-
-              <div class="pulse-card">
-                <small>For opportunity</small>
-                <strong>Creates a reason to reach out</strong>
-                <p>It turns the site from a visual page into a living point of contact.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="value">
-      <div class="container">
-        <div class="section-head reveal">
-          <h2>Use cases & value</h2>
-          <p>
-            The project is stronger when people instantly understand what it can become. These blocks make it feel more buyable.
-          </p>
-        </div>
-
-        <div class="three-col">
-          <div class="idea glass reveal">
-            <div class="icon">◉</div>
-            <h4>Founder platform</h4>
-            <p>
-              A premium digital home for a creator, builder, operator, or founder who wants to feel current instead of static.
-            </p>
-          </div>
-
-          <div class="idea glass reveal">
-            <div class="icon">✦</div>
-            <h4>Brand campaign layer</h4>
-            <p>
-              A living concept page for launches, message rotation, daily drops, limited campaigns, or premium brand storytelling.
-            </p>
-          </div>
-
-          <div class="idea glass reveal">
-            <div class="icon">⚡</div>
-            <h4>Acquisition-ready asset</h4>
-            <p>
-              A branded object with structure, identity, repeat value, and perceived future potential instead of a plain landing page.
-            </p>
-          </div>
-        </div>
-
-        <div class="three-col" style="margin-top:16px;">
-          <div class="partner-card subtle-glass reveal">
-            <small>For partnerships</small>
-            <strong>A premium first impression.</strong>
-            <p>Useful for brand intros, media decks, creative positioning, or direct outreach.</p>
-          </div>
-
-          <div class="partner-card subtle-glass reveal">
-            <small>For teams</small>
-            <strong>A proof of digital taste.</strong>
-            <p>Shows how concept, design, structure, and motion can be combined into a coherent brand object.</p>
-          </div>
-
-          <div class="partner-card subtle-glass reveal">
-            <small>For opportunity</small>
-            <strong>A better way to be remembered.</strong>
-            <p>Instead of just saying “I’m talented,” the site demonstrates attention to detail and premium thinking.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="cta" id="contact">
-      <div class="container">
-        <div class="cta-box glass reveal">
-          <div class="cta-grid">
-            <div>
-              <div class="eyebrow">
-                <span class="dot"></span>
-                contact and collaboration
-              </div>
-
-              <h2>If this feels valuable, let’s talk.</h2>
-              <p>
-                I’m open to collaboration, opportunity, reward, concept work, creative partnerships, premium site builds,
-                and conversations with teams or companies that value originality, speed, and real digital instinct.
-              </p>
-
-              <div class="cta-actions">
-                <a class="btn btn-lg btn-primary" href="mailto:dmytro.lyashok@icloud.com?subject=SLAVCOIN%20Opportunity">Email me</a>
-                <button class="btn btn-lg btn-dark" id="copyEmailBtn">Copy email</button>
-              </div>
-            </div>
-
-            <div class="contact-card">
-              <small>Direct contact</small>
-              <strong id="emailText">dmytro.lyashok@icloud.com</strong>
-              <p>
-                For collaborations, premium web concepts, partnerships, opportunities, or strategic conversations around the project.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="container footer">
-      <div class="footer-box">
-        <div>SIGNAL/ONE © 2026</div>
-        <div>Premium one-file site • Dynamic daily content • Living brand platform</div>
-      </div>
-    </div>
-  </main>
-
   <script>
-    const dailySignals = [
-      {
-        title: "Attention is the rarest modern currency.",
-        subtitle: "Build things people remember, not pages people forget.",
-        mission: "Remove one boring thing from your project today.",
-        focus: "Attention design",
-        headline: "Today is about building something that deserves a second visit.",
-        body: "A lot of websites are finished technically but dead emotionally. Today's signal is simple: if your page has no reason to be revisited, it becomes decoration. The future belongs to digital places that continue speaking after the first impression.",
-        quote: "“A strong idea does not ask for attention. It reorganizes it.”",
-        meta: "Signal note / attention"
-      },
-      {
-        title: "Meaning beats noise.",
-        subtitle: "Style attracts. Meaning keeps people there.",
-        mission: "Rewrite one sentence until it actually says something real.",
-        focus: "Meaning density",
-        headline: "Today's page mode is clarity with weight.",
-        body: "The internet is overloaded with motion, effects, promises, and recycled aesthetics. The edge is no longer in having design. The edge is in having something inside the design that people feel worth repeating.",
-        quote: "“If the page looks expensive but says nothing, it is still empty.”",
-        meta: "Signal note / meaning"
-      },
-      {
-        title: "Identity is a product.",
-        subtitle: "A site should feel like a point of view, not a file upload.",
-        mission: "Define what your project stands for in one hard sentence.",
-        focus: "Identity",
-        headline: "Today's signal is about owning a recognizable voice.",
-        body: "People return to identity. They remember pages, brands, and projects that feel authored. A clean interface is useful. A strong point of view is unforgettable.",
-        quote: "“The cleanest interface in the world loses to one with a soul.”",
-        meta: "Signal note / identity"
-      },
-      {
-        title: "Motion creates momentum.",
-        subtitle: "Small changes every day make a page feel alive.",
-        mission: "Add one living element that changes without manual edits.",
-        focus: "Momentum systems",
-        headline: "Today's concept is growth through visible movement.",
-        body: "What changes gets noticed. A living system does not need to scream. It just needs to prove that time is passing through it. That alone makes the project feel maintained, relevant, and present.",
-        quote: "“Movement is proof of life.”",
-        meta: "Signal note / momentum"
-      },
-      {
-        title: "People remember tension.",
-        subtitle: "A good site needs friction, desire, and contrast.",
-        mission: "Turn one weak section into a sharper idea.",
-        focus: "Emotional tension",
-        headline: "Today is about making the page feel less safe and more alive.",
-        body: "Perfect smoothness can be forgettable. What often stays in memory is contrast: calm with force, luxury with urgency, silence with impact. The best projects know how to hold opposing energies at once.",
-        quote: "“Memorability lives where elegance meets pressure.”",
-        meta: "Signal note / tension"
-      },
-      {
-        title: "The future is won by clear signal.",
-        subtitle: "Most people are broadcasting. Few are transmitting.",
-        mission: "Remove clutter until the main idea hits faster.",
-        focus: "Signal clarity",
-        headline: "Today's signal is focused on saying one thing with power.",
-        body: "Weak projects often fail because they try to say everything. Strong projects compress themselves. They know their signal, protect it, and repeat it with confidence until the world understands.",
-        quote: "“The strongest page in the room is often the quietest one with the clearest signal.”",
-        meta: "Signal note / clarity"
-      },
-      {
-        title: "Memory is a design layer.",
-        subtitle: "What people feel can be built into the interface.",
-        mission: "Ask what a visitor should remember 24 hours later.",
-        focus: "Memory design",
-        headline: "Today's page mode is built around lasting impression.",
-        body: "A page should not only work while open. It should leave a trace after it is closed. The strongest interfaces create a sentence in the user's head that keeps replaying after they leave.",
-        quote: "“The real interface begins after the tab is closed.”",
-        meta: "Signal note / memory"
-      }
-    ];
+    const terminalBody = document.getElementById("terminalBody");
+    const recentOutput = document.getElementById("recentOutput");
+    const logCount = document.getElementById("logCount");
+    const streamCount = document.getElementById("streamCount");
+    const clock = document.getElementById("clock");
 
-    const phases = [
-      { name: "Morning mode", desc: "Reset, direction, beginning energy." },
-      { name: "Day mode", desc: "Execution, clarity, visible movement." },
-      { name: "Evening mode", desc: "Reflection, refinement, deeper thought." },
-      { name: "Night mode", desc: "Silence, future, hidden planning." }
-    ];
-
-    function getDayIndex(date) {
-      const start = new Date(date.getFullYear(), 0, 0);
-      const diff = date - start;
-      const oneDay = 1000 * 60 * 60 * 24;
-      return Math.floor(diff / oneDay);
-    }
-
-    function getPhase(hour) {
-      if (hour >= 5 && hour < 12) return phases[0];
-      if (hour >= 12 && hour < 18) return phases[1];
-      if (hour >= 18 && hour < 23) return phases[2];
-      return phases[3];
-    }
-
-    function pad(n) {
-      return String(n).padStart(2, "0");
-    }
+    let totalLogs = 0;
 
     function updateClock() {
       const now = new Date();
-      const hours = now.getHours();
-      const minutes = now.getMinutes();
-      const seconds = now.getSeconds();
-
-      document.getElementById("liveClock").textContent = `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
-
-      const dateText = now.toLocaleDateString("en-US", {
-        weekday: "long",
-        month: "long",
-        day: "numeric",
-        year: "numeric"
+      clock.textContent = now.toLocaleString("en-GB", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
       });
-      document.getElementById("todayDate").textContent = dateText;
-
-      const phase = getPhase(hours);
-      document.getElementById("dayMode").textContent = phase.name;
-      document.getElementById("phaseCard").textContent = `${phase.name} — ${phase.desc}`;
-
-      const tomorrow = new Date(now);
-      tomorrow.setHours(24, 0, 0, 0);
-      const diff = tomorrow - now;
-
-      const h = Math.floor(diff / (1000 * 60 * 60));
-      const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const s = Math.floor((diff % (1000 * 60)) / 1000);
-
-      document.getElementById("nextReset").textContent = `${pad(h)}:${pad(m)}:${pad(s)}`;
     }
-
-    function updateDailyContent() {
-      const now = new Date();
-      const dayIndex = getDayIndex(now);
-      const data = dailySignals[dayIndex % dailySignals.length];
-      const phase = getPhase(now.getHours());
-
-      document.getElementById("signalTitle").textContent = data.title;
-      document.getElementById("signalSubtitle").textContent = data.subtitle;
-
-      document.getElementById("missionTitle").textContent = data.mission;
-      document.getElementById("missionSubtitle").textContent = "Generated from the daily system rotation.";
-
-      document.getElementById("focusTitle").textContent = `${data.focus} / ${phase.name}`;
-      document.getElementById("focusSubtitle").textContent = phase.desc;
-
-      document.getElementById("dailyHeadline").textContent = data.headline;
-      document.getElementById("dailyBody").textContent = `${data.body} Current phase: ${phase.name}. ${phase.desc}`;
-
-      document.getElementById("dailyQuote").textContent = data.quote;
-      document.getElementById("dailyQuoteMeta").textContent = data.meta;
-
-      document.getElementById("dailyMissionCard").textContent = data.mission;
-      document.getElementById("currentFocusCard").textContent = data.focus;
-    }
-
-    updateClock();
-    updateDailyContent();
     setInterval(updateClock, 1000);
-    setInterval(updateDailyContent, 60000);
+    updateClock();
 
-    const revealItems = document.querySelectorAll(".reveal");
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add("show");
-      });
-    }, { threshold: 0.12 });
-    revealItems.forEach(el => io.observe(el));
+    const demoLines = [
+      { cls:"dim", text:"[boot] initializing secure runtime..." },
+      { cls:"dim", text:"[sys] loading visual modules..." },
+      { cls:"ok", text:"[ok] websocket channel connected" },
+      { cls:"dim", text:"[log] waiting for incoming tasks..." },
+      { cls:"dim", text:"[log] parsing live events..." },
+      { cls:"warn", text:"[warn] no external backend attached — demo mode active" },
+      { cls:"dim", text:"[log] stream packet received" },
+      { cls:"ok", text:"[ok] terminal render updated" },
+      { cls:"dim", text:"[log] writing recent output cache..." },
+      { cls:"ok", text:"[ok] dashboard synced successfully" }
+    ];
 
-    document.getElementById("copyEmailBtn").addEventListener("click", async () => {
-      const email = "dmytro.lyashok@icloud.com";
-      const btn = document.getElementById("copyEmailBtn");
-      try {
-        await navigator.clipboard.writeText(email);
-        btn.textContent = "Email copied";
-      } catch {
-        btn.textContent = "Copy failed";
+    function addTerminalLine(cls, text) {
+      const div = document.createElement("div");
+      div.className = "line " + cls;
+      div.textContent = text;
+      terminalBody.appendChild(div);
+      terminalBody.scrollTop = terminalBody.scrollHeight;
+      totalLogs++;
+      logCount.textContent = String(totalLogs).padStart(4, "0");
+
+      const item = document.createElement("div");
+      item.className = "list-item";
+      item.textContent = text;
+      recentOutput.prepend(item);
+
+      while (recentOutput.children.length > 5) {
+        recentOutput.removeChild(recentOutput.lastChild);
       }
-      setTimeout(() => btn.textContent = "Copy email", 1600);
-    });
+    }
 
-    document.getElementById("copyMainPitch").addEventListener("click", async () => {
-      const text = "SIGNAL/ONE is a premium living digital platform that changes every day using time-based logic. It works as a founder identity page, brand concept system, campaign object, or acquisition-ready internet asset designed to feel alive, current, and memorable.";
-      const btn = document.getElementById("copyMainPitch");
-      try {
-        await navigator.clipboard.writeText(text);
-        btn.textContent = "Pitch copied";
-      } catch {
-        btn.textContent = "Copy failed";
-      }
-      setTimeout(() => btn.textContent = "Copy pitch text", 1600);
-    });
+    let i = 0;
+    setInterval(() => {
+      const line = demoLines[i % demoLines.length];
+      addTerminalLine(line.cls, line.text);
+      i++;
+    }, 1100);
+
+    let fakeStreams = 8;
+    setInterval(() => {
+      fakeStreams += Math.random() > 0.5 ? 1 : 0;
+      streamCount.textContent = String(fakeStreams).padStart(2, "0");
+    }, 5000);
+
+    function fakeSubscribe(e){
+      e.preventDefault();
+      alert("Subscription button clicked. Replace this with your payment link.");
+    }
+
+    addTerminalLine("ok", "[ok] dashboard online");
+    addTerminalLine("dim", "[log] premium interface loaded");
+    addTerminalLine("dim", "[log] ready for your custom backend");
   </script>
 </body>
 </html>
