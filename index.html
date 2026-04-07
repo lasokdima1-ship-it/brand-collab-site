@@ -439,82 +439,138 @@
     </div>
   </div>
 
-  <script>
-    const terminalBody = document.getElementById("terminalBody");
-    const recentOutput = document.getElementById("recentOutput");
-    const logCount = document.getElementById("logCount");
-    const streamCount = document.getElementById("streamCount");
-    const clock = document.getElementById("clock");
+<script>
+  const terminalBody = document.getElementById("terminalBody");
+  const recentOutput = document.getElementById("recentOutput");
+  const logCount = document.getElementById("logCount");
+  const streamCount = document.getElementById("streamCount");
+  const clock = document.getElementById("clock");
 
-    let totalLogs = 0;
+  let totalLogs = 23872;
+  let fakeStreams = 12;
+  let checkedCount = 1482741;
+  let foundCount = 7;
 
-    function updateClock() {
-      const now = new Date();
-      clock.textContent = now.toLocaleString("en-GB", {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit"
-      });
+  const usedAddresses = new Set();
+  const usedPrivKeys = new Set();
+
+  function updateClock() {
+    const now = new Date();
+    clock.textContent = now.toLocaleString("en-GB", {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit"
+    });
+  }
+  setInterval(updateClock, 1000);
+
+  function randomHex(len) {
+    const chars = "abcdef0123456789";
+    let out = "";
+    for (let i = 0; i < len; i++) {
+      out += chars[Math.floor(Math.random() * chars.length)];
     }
-    setInterval(updateClock, 1000);
-    updateClock();
+    return out;
+  }
 
-    const demoLines = [
-      { cls:"dim", text:"[boot] initializing secure runtime..." },
-      { cls:"dim", text:"[sys] loading visual modules..." },
-      { cls:"ok", text:"[ok] websocket channel connected" },
-      { cls:"dim", text:"[log] waiting for incoming tasks..." },
-      { cls:"dim", text:"[log] parsing live events..." },
-      { cls:"warn", text:"[warn] no external backend attached — demo mode active" },
-      { cls:"dim", text:"[log] stream packet received" },
-      { cls:"ok", text:"[ok] terminal render updated" },
-      { cls:"dim", text:"[log] writing recent output cache..." },
-      { cls:"ok", text:"[ok] dashboard synced successfully" }
-    ];
+  function randomBase58(len) {
+    const chars = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
+    let out = "";
+    for (let i = 0; i < len; i++) {
+      out += chars[Math.floor(Math.random() * chars.length)];
+    }
+    return out;
+  }
 
-    function addTerminalLine(cls, text) {
-      const div = document.createElement("div");
-      div.className = "line " + cls;
-      div.textContent = text;
-      terminalBody.appendChild(div);
-      terminalBody.scrollTop = terminalBody.scrollHeight;
-      totalLogs++;
-      logCount.textContent = String(totalLogs).padStart(4, "0");
+  function generateUniquePrivKey() {
+    let key;
+    do { key = randomHex(64); } while (usedPrivKeys.has(key));
+    usedPrivKeys.add(key);
+    return key;
+  }
 
-      const item = document.createElement("div");
-      item.className = "list-item";
-      item.textContent = text;
-      recentOutput.prepend(item);
+  function generateUniqueAddress() {
+    let addr;
+    do {
+      const p = ["1","3","bc1q"][Math.floor(Math.random()*3)];
+      addr = p === "bc1q" ? p + randomBase58(38).toLowerCase() : p + randomBase58(33);
+    } while (usedAddresses.has(addr));
+    usedAddresses.add(addr);
+    return addr;
+  }
 
-      while (recentOutput.children.length > 5) {
-        recentOutput.removeChild(recentOutput.lastChild);
-      }
+  function randomBalance() {
+    return (Math.random()*0.4 + 0.0003).toFixed(6);
+  }
+
+  function addLine(html) {
+    const div = document.createElement("div");
+    div.innerHTML = html;
+    terminalBody.appendChild(div);
+    terminalBody.scrollTop = terminalBody.scrollHeight;
+
+    totalLogs++;
+    logCount.textContent = String(totalLogs);
+
+    const item = document.createElement("div");
+    item.className = "list-item";
+    item.innerHTML = html.replace(/<[^>]+>/g, "");
+    recentOutput.prepend(item);
+
+    while (recentOutput.children.length > 5) {
+      recentOutput.removeChild(recentOutput.lastChild);
+    }
+  }
+
+  function normalBatch() {
+    checkedCount += Math.floor(Math.random()*10)+2;
+
+    const priv = generateUniquePrivKey();
+    const addr = generateUniqueAddress();
+
+    addLine(`<span style="color:#6fa88d">[scan]</span> checking wallet #${checkedCount}`);
+    addLine(`<span style="color:#7da18f">[key]</span> ${priv}`);
+    addLine(`<span style="color:#7da18f">[addr]</span> ${addr}`);
+    addLine(`<span style="color:#999">[btc]</span> 0.000000 BTC`);
+    addLine(`<span style="color:#00ff99">[ok]</span> scanned`);
+  }
+
+  function foundBatch() {
+    checkedCount += Math.floor(Math.random()*6)+1;
+    foundCount++;
+
+    const priv = generateUniquePrivKey();
+    const addr = generateUniqueAddress();
+    const bal = randomBalance();
+
+    addLine(`<span style="color:#ffcc00">[FOUND]</span> wallet match #${checkedCount}`);
+    addLine(`<span style="color:#00ff99">[key]</span> ${priv}`);
+    addLine(`<span style="color:#00ff99">[addr]</span> ${addr}`);
+    addLine(`<span style="color:#ff4444;font-weight:bold">[BTC]</span> <span style="color:#ff4444">${bal} BTC</span>`);
+    addLine(`<span style="color:#00ff99">[saved]</span> written to FOUND_WALLETS.txt`);
+
+    if (Math.random() < 0.6) {
+      addLine(`<span style="color:#ffcc00">[export]</span> exported to notebook`);
+    }
+  }
+
+  function simulate() {
+    if (Math.random() < 0.18) {
+      foundBatch();
+    } else {
+      normalBatch();
     }
 
-    let i = 0;
-    setInterval(() => {
-      const line = demoLines[i % demoLines.length];
-      addTerminalLine(line.cls, line.text);
-      i++;
-    }, 1100);
+    fakeStreams += Math.random() > 0.4 ? 1 : 0;
+    streamCount.textContent = fakeStreams;
+  }
 
-    let fakeStreams = 8;
-    setInterval(() => {
-      fakeStreams += Math.random() > 0.5 ? 1 : 0;
-      streamCount.textContent = String(fakeStreams).padStart(2, "0");
-    }, 5000);
+  setInterval(simulate, 1100);
 
-    function fakeSubscribe(e){
-      e.preventDefault();
-      alert("Subscription button clicked. Replace this with your payment link.");
-    }
-
-    addTerminalLine("ok", "[ok] dashboard online");
-    addTerminalLine("dim", "[log] premium interface loaded");
-    addTerminalLine("dim", "[log] ready for your custom backend");
-  </script>
+  addLine(`<span style="color:#00ff99">[ok]</span> system online`);
+  addLine(`<span style="color:#6fa88d">[stats]</span> loaded logs: ${totalLogs}`);
+  addLine(`<span style="color:#6fa88d">[stats]</span> checked wallets: ${checkedCount}`);
+  addLine(`<span style="color:#6fa88d">[stats]</span> found: ${foundCount}`);
+</script>
 </body>
 </html>
