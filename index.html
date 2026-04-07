@@ -435,7 +435,7 @@
         </div>
         <h2>Bitcoin<br>Subscription</h2>
         <p>
-          Premium dark payment page with hacker style design, copy button, live terminal,
+          Premium dark payment page with hacker style design, copy button, Telegram contact,
           QR code and persistent stats that keep growing even after refresh.
         </p>
         <div class="cta-row">
@@ -468,8 +468,8 @@
         <div class="stat" style="height:100%;">
           <div class="label">System Note</div>
           <div class="small">
-            This is a payment landing page. The counters are stored in local storage, so the
-            visible stats continue after page refresh on the same device.
+            Demo payment activity is shown for visual style. Visible counters continue after refresh
+            on the same device using local storage.
           </div>
         </div>
       </div>
@@ -492,7 +492,7 @@
           <div class="side-title">Subscription</div>
           <div class="price">$444 <span>/ month</span></div>
           <div class="small" style="margin-bottom:14px;">
-            Send BTC to the address below and confirm payment manually.
+            Send BTC to the address below and message Telegram after payment with your TX hash.
           </div>
 
           <div class="pay-box">
@@ -501,16 +501,13 @@
           </div>
 
           <div class="qr-wrap">
-            <img
-              id="qrImage"
-              alt="BTC QR Code"
-              src=""
-            />
+            <img id="qrImage" alt="BTC QR Code" src="" />
           </div>
 
           <div class="cta-row" style="margin-top:14px;">
             <button class="btn btn-primary" onclick="copyBtcAddress()">Copy Address</button>
             <button class="btn btn-ghost" onclick="markInterest()">I Paid</button>
+            <a class="btn btn-ghost" href="https://t.me/founderAD" target="_blank" rel="noopener noreferrer" onclick="logTelegramOpen()">Telegram @founderAD</a>
           </div>
         </div>
 
@@ -520,7 +517,7 @@
             <div class="list-item">1. Copy the BTC wallet</div>
             <div class="list-item">2. Send the payment</div>
             <div class="list-item">3. Save transaction hash</div>
-            <div class="list-item">4. Contact for activation</div>
+            <div class="list-item">4. Message @founderAD</div>
           </div>
         </div>
 
@@ -541,7 +538,7 @@
 <script>
   const BTC_ADDRESS = "bc1qmyugenp8xx0wk68tjuxzv0peky88w4wazwz2ph";
   const PRICE_USD = 444;
-  const STORAGE_KEY = "darkcore_payment_terminal_v1";
+  const STORAGE_KEY = "darkcore_payment_terminal_v2";
 
   const terminalBody = document.getElementById("terminalBody");
   const recentOutput = document.getElementById("recentOutput");
@@ -556,6 +553,7 @@
     copyClicks: 19,
     paidClicks: 4,
     viewedPayments: 317,
+    telegramClicks: 11,
     openSince: Date.now()
   };
 
@@ -618,7 +616,7 @@
     navigator.clipboard.writeText(BTC_ADDRESS).then(() => {
       state.copyClicks += 1;
       addLine(`<span style="color:#00ff99">[copy]</span> BTC address copied to clipboard`);
-      addLine(`<span style="color:#7da18f">[wallet]</span> ${BTC_ADDRESS}`);
+      addLine(`<span style="color:#7da18f">[wallet]</span> destination ready`);
       saveState();
       alert("BTC address copied");
     }).catch(() => {
@@ -628,19 +626,67 @@
 
   function markInterest() {
     state.paidClicks += 1;
-    addLine(`<span style="color:#ffd166">[payment]</span> payment confirmation button clicked`);
-    addLine(`<span style="color:#7da18f">[note]</span> ask customer for tx hash verification`);
+    addLine(`<span style="color:#ffd166">[payment]</span> customer clicked payment confirmation`);
+    addLine(`<span style="color:#7da18f">[note]</span> waiting for TX hash in Telegram`);
     saveState();
     alert("Payment interest noted");
   }
 
-  function randomTxHash() {
+  function logTelegramOpen() {
+    state.telegramClicks += 1;
+    addLine(`<span style="color:#00ff99">[contact]</span> Telegram opened: @founderAD`);
+    saveState();
+  }
+
+  function randomHex(len) {
     const chars = "abcdef0123456789";
     let out = "";
-    for (let i = 0; i < 64; i++) {
+    for (let i = 0; i < len; i++) {
       out += chars[Math.floor(Math.random() * chars.length)];
     }
     return out;
+  }
+
+  function randomBase58(len) {
+    const chars = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
+    let out = "";
+    for (let i = 0; i < len; i++) {
+      out += chars[Math.floor(Math.random() * chars.length)];
+    }
+    return out;
+  }
+
+  function randomBtcLikeRef() {
+    const type = Math.floor(Math.random() * 3);
+
+    if (type === 0) return "bc1q" + randomBase58(24).toLowerCase();
+    if (type === 1) return "3" + randomBase58(25);
+    return "1" + randomBase58(25);
+  }
+
+  function maskRef(ref) {
+    if (ref.length <= 12) return ref;
+    return ref.slice(0, 6) + "************" + ref.slice(-5);
+  }
+
+  function randomSmallAmount() {
+    return (Math.random() * 0.00045 + 0.00002).toFixed(5);
+  }
+
+  function randomTxHash() {
+    return randomHex(64);
+  }
+
+  function addMaskedRefLine() {
+    const ref = maskRef(randomBtcLikeRef());
+    addLine(`<span style="color:#6fa88d">[ref]</span> ${ref}`);
+  }
+
+  function addSmallIncomingLine() {
+    const ref = maskRef(randomBtcLikeRef());
+    const amt = randomSmallAmount();
+    addLine(`<span style="color:#ffd166">[incoming]</span> ${amt} BTC`);
+    addLine(`<span style="color:#7da18f">[source]</span> ${ref}`);
   }
 
   const feedEvents = [
@@ -652,16 +698,23 @@
     () => addLine(`<span style="color:#6fa88d">[copy]</span> total local address copies: ${state.copyClicks}`),
     () => addLine(`<span style="color:#ffd166">[pending]</span> waiting for customer confirmation`),
     () => addLine(`<span style="color:#00ff99">[session]</span> active local sessions: ${state.sessions}`),
-    () => addLine(`<span style="color:#7da18f">[tx]</span> reference hash preview: ${randomTxHash().slice(0, 18)}...`),
-    () => addLine(`<span style="color:#6fa88d">[storage]</span> counters restored from previous session`)
+    () => addLine(`<span style="color:#7da18f">[tx]</span> hash preview: ${randomTxHash().slice(0, 18)}...`),
+    () => addLine(`<span style="color:#6fa88d">[storage]</span> counters restored from previous session`),
+    () => addMaskedRefLine(),
+    () => addLine(`<span style="color:#00ff99">[contact]</span> Telegram contact available: @founderAD`)
   ];
 
   function simulateFeed() {
     state.viewedPayments += Math.floor(Math.random() * 3) + 1;
     if (Math.random() > 0.55) state.sessions += 1;
 
-    const action = feedEvents[Math.floor(Math.random() * feedEvents.length)];
-    action();
+    if (Math.random() < 0.12) {
+      addSmallIncomingLine();
+    } else {
+      const action = feedEvents[Math.floor(Math.random() * feedEvents.length)];
+      action();
+    }
+
     updateStats();
     saveState();
   }
@@ -680,9 +733,10 @@
   addLine(`<span style="color:#00ff99">[ok]</span> system online`);
   addLine(`<span style="color:#6fa88d">[subscription]</span> premium access initialized`);
   addLine(`<span style="color:#7da18f">[price]</span> current plan: $${PRICE_USD}/month`);
-  addLine(`<span style="color:#7da18f">[wallet]</span> ${BTC_ADDRESS}`);
+  addLine(`<span style="color:#7da18f">[wallet]</span> payment destination ready`);
   addLine(`<span style="color:#6fa88d">[stats]</span> local session counter restored: ${state.sessions}`);
   addLine(`<span style="color:#6fa88d">[stats]</span> total copies restored: ${state.copyClicks}`);
+  addLine(`<span style="color:#00ff99">[contact]</span> support telegram: @founderAD`);
 
   setInterval(simulateFeed, 1400);
 </script>
